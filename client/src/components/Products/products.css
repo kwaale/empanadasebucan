@@ -1,0 +1,16 @@
+.products{
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            150px,
+            1fr
+        )
+    );
+    gap: 16px;
+}
+.product{
+    color: white;
+    min-width: 150px;
+    background-color: blue;
+}
