@@ -10,7 +10,7 @@ import productsReducer from "./products";
 *************************************************************/
 
 const rootReducers = combineReducers({
-    products: productsReducer,
+    productsReducer,
 });
 
 export default rootReducers;
