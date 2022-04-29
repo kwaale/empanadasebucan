@@ -68,3 +68,51 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Deploy vercel
+# Error
+
+```
+Treating warnings as errors because process.env.CI = true.
+```
+## Solucion
+
+### En npm run build correr el siguiente codido
+
+```
+CI=false npm run build
+```
+# Menu
+
+//    Sabores Normales $1
+Mechada
+Queso
+Pollo
+Molida
+Cazón
+Vegana
+
+// Sabores Especiales $1,5
+Mechada/Queso
+Pollo/Queso
+Tajada/Queso
+Jamón/Queso
+Asado
+Dominó
+
+// Sabores Gourmet $2
+CB Pollo (Cordon Bleu Pollo)
+CB Carne
+Pabellón
+Pabellón Margariteño
+Camarón
+Asado/Queso
+Chuleta/Queso
+
+// Bebidas $1
+Mango
+Parchita
+Fresa
+Papelón/Limón
+Durazno
+Malta
