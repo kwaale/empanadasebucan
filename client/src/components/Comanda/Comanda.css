@@ -1,0 +1,13 @@
+.table-container{
+    display: flex;
+    flex-flow: column;
+    display: inline-flex;
+}
+.products-comanda{
+    display: flex;
+}
+.cantidad-comanda{
+    
+    
+    
+}

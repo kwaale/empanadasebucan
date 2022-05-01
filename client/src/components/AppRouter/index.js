@@ -5,7 +5,7 @@ import Products from '../Products';
 const AppRouter = () => {
     return(
         <div>
-            <h1>AppRouter</h1>
+            <h1>Empanadas Sebucan</h1>
             <Routes>
                 <Route path="/" element={<Products/>} />
                 <Route path="/comanda" element={<Comanda/>} />

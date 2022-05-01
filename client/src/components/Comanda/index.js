@@ -1,27 +1,31 @@
+import './Comanda.css'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Comanda = () => {
+    const { cart } = useSelector(state => state.productsReducer);
+    console.log("cart", cart);
     return (
         <div>
-            <div>
-                <table className='table'>
+            <div className='table-container'>
+                <table>
                     <thead>
                         <tr>
                             <th>Producto</th>
                             <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>ver</td>
-                            <td>ver</td>
-                            <td>ver</td>
-                            <td>ver</td>
-                        </tr>
+                        {cart?.map((cart, i) => {
+                            return (
+                                <tr key={i}>
+                                    <td className='products-comanda'>{cart.name}</td>
+                                    <td className='cantidad-comanda'>{cart.quantity}</td>
+                                </tr>
+                            )
+                        }
+                        )}
                     </tbody>
-
                 </table>
             </div>
             <Link to="/">
