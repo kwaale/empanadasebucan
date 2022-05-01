@@ -15,20 +15,46 @@ const productsReducer = (state = initialState, action) => {
                 products: action.payload
             }
         case ADD_PRODUCT_CART:
-            // corregir este
-            let product = state.products.find(p=>p.id == action.payload);
-            // console.log("state.cart.length + 1",state.cart.length + 1)
-            // console.log("product",product)
-            // console.log("state.cart",state.cart)
-            // product.id = state.cart.length + 1
-            return {
-                ...state,
-                cart: [...state.cart, product]
-            }          
+            let product = state.products.find(p=>p.id === action.payload);
+            if (state.cart.find(p => p.id === action.payload)) {
+                // console.log("producto agregado")
+                const newCart = state.cart.map(p => {
+                    if (p.id === action.payload) {
+                        p.quantity += 1;
+                        p.total = p.price * p.quantity;
+                    }
+                    return p;
+                })
+                return {
+                    ...state,
+                    cart: newCart
+                }
+            } else {
+                product.quantity = 1;
+                return {
+                    ...state,
+                    cart: [...state.cart, product]
+                }
+            }                 
         case DELETE_PRODUCT_CART:
-            return {
-                ...state,
-                cart: state.cart.filter(product => (product.id !== action.payload))
+            if (state.cart.find(p => p.id === action.payload && p.quantity === 1)) {
+                const newCart = state.cart.filter(p => p.id !== action.payload)
+                return {
+                    ...state,
+                    cart: newCart
+                }
+            } else {
+                const newCart = state.cart.map(p => {
+                    if (p.id === action.payload) {
+                        p.quantity -= 1;
+                        p.total = p.price * p.quantity;
+                    }
+                    return p;
+                })
+                return {
+                    ...state,
+                    cart: newCart
+                }
             }
         default:
             return state;
