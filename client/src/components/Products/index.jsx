@@ -28,19 +28,19 @@ const Products = () => {
                 ))}
             </div>
             <div>
-                {cart?.map((p,i) => {
+                {cart?.map((p, i) => {
                     return (
                         <ul key={i} className="product-buyList">
-                            <button onClick={()=>dispatch(deleteCart(p.id))}>
-                            {i} {p.name} {p.price.toFixed(2)}
+                            <button onClick={() => dispatch(deleteCart(p.id))}>
+                                {p.name} {p.price.toFixed(2)}
                             </button>
                         </ul>
                     )
                 })}
             </div>
             <div>
-                <h2>Total</h2>
-                <h3>$ {totaliza(cart).toFixed(2)}</h3>
+                {cart.length ? <h2>Total $ {totaliza(cart).toFixed(2)}</h2> : null}
+                {cart.length ? <h2>Items {cart?.length}</h2> : null}
             </div>
         </div>
     )
