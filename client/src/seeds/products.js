@@ -1,6 +1,6 @@
 export const products = [
     // Sabores Normales $1
-    { id:1, name: "Mechada", price: 1.00, icon: "🥟;", category: "normal" },
+    { id:1, name: "Mechada", price: 1.00, icon: "🥟", category: "normal" },
     { id:2, name: "Queso", price: 1.00, icon: "🥟", category: "normal" },
     { id:3, name: "Pollo", price: 1.00, icon: "🥟", category: "normal" },
     { id:4, name: "Molida", price: 1.00, icon: "🥟", category: "normal" },

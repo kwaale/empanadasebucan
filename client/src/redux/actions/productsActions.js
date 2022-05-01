@@ -28,10 +28,10 @@ export const addCart = (id)=>{
     }
 }
 
-export const deleteCart = (id1)=>{
-    console.log("Action id1 ", id1)
+export const deleteCart = (id)=>{
+    // console.log("Action id ", id)
     return {
         type:DELETE_PRODUCT_CART,
-        payload:id1
+        payload:id
     }
 }
