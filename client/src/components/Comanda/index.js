@@ -28,9 +28,14 @@ const Comanda = () => {
                     </tbody>
                 </table>
             </div>
-            <Link to="/">
-                <h1>Volver</h1>
-            </Link>
+            <div>
+                <button onClick={()=>window.print()}>Impirimir</button>
+            </div>
+            <div>
+                <Link to="/">
+                    <h1>Volver</h1>
+                </Link>
+            </div>
         </div>
     );
 }

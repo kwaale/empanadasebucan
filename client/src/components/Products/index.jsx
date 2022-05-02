@@ -5,6 +5,7 @@ import { getProducts, deleteCart } from "../../redux/actions/productsActions";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import Cart from "./Cart";
+import MetodosPago from "./MetodosPago";
 
 
 const Products = () => {
@@ -45,11 +46,25 @@ const Products = () => {
             <div>
                {cart.length ? <h2>Total $ {totaliza(cart).toFixed(2)}</h2> : null}
             </div>
+            <div className="container-inputs">
+               Cliente
+               <input type="text" />
+               Direccion
+               <input type="text" />
+               Observacion
+               <input type="text" />
+               Referencia
+               <input type="text" />
+               Deliveri/Pick Up
+               <input type="text" />
+               Metodo de pago
+               <MetodosPago />
+            </div>
          </div>
          <div>
             <nav>
                <Link to="/comanda">
-                  <h1>Comanda</h1>
+                  <button onClick={()=>console.log("comanda")}>Comanda</button>
                </Link>
             </nav>
          </div>
@@ -58,3 +73,10 @@ const Products = () => {
 }
 export default Products;
 
+/**
+ * Cliente
+ * Metodo de pago
+ * Direccion
+ * Observacion
+ * Referencia
+ */

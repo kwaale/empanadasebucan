@@ -55,3 +55,17 @@
     background: chocolate;
     height: 40px;   
 }
+
+.container-inputs{
+    display: inline-flex;
+    flex-flow: column;
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.input-checkbox{
+    display: inline-flex;
+    flex-flow: column;
+    margin-top: 10px;
+    text-align: justify; 
+}
