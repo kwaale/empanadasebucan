@@ -14,7 +14,7 @@ export const products = [
     { id:11, name: "Asado", price: 1.50, icon: "🥟", category:"especial"  },
     { id:12, name: "Dominó", price: 1.50, icon: "🥟", category:"especial"  },
     // Sabores Gourmet $2
-    { id:13, name: "CB Pollo (Cordon Bleu Pollo)", price: 2.00, icon: "🥟", category:"gourmet"  },
+    { id:13, name: "CB Pollo", price: 2.00, icon: "🥟", category:"gourmet"  },
     { id:14, name: "CB Carne", price: 2.00, icon: "🥟", category:"gourmet"  },
     { id:15, name: "Pabellón", price: 2.00, icon: "🥟", category:"gourmet"  },
     { id:16, name: "Pabellón Margariteño", price: 2.00, icon: "🥟", category:"gourmet"  },

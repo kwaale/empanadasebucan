@@ -55,10 +55,11 @@ const Products = () => {
                <input type="text" />
                Referencia
                <input type="text" />
-               Deliveri/Pick Up
+               Delivery/Pick Up
                <input type="text" />
-               Metodo de pago
+               Metodo de Pago
                <MetodosPago />
+               <input type="text" />
             </div>
          </div>
          <div>
