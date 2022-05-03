@@ -11,7 +11,6 @@ const ButtonProduct = ({product}) => {
                 <div className="card-body">
                 <h3 className="card-title">{product.name}</h3>
                 <p>$ {product.price.toFixed(2)}</p>
-                <h1 role="img">{product.icon}</h1>
                 </div>
             </button>
         </div>

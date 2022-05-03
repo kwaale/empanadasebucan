@@ -1,7 +1,8 @@
 .table-container{
-    display: flex;
-    flex-flow: column;
+    color: black;
     display: inline-flex;
+    flex-flow: column;
+    background: white;
 }
 .products-comanda{
     display: flex;

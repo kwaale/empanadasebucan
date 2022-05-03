@@ -20,16 +20,15 @@
     color: white;
     padding: -19px;
     width: 150px;
-    height: 203px;
+    height: 120px;
     background-color: blue;
     margin: 7px;
 }
 
 .product:hover {
     color: white;
-    padding: -19px;
     width: 150px;
-    height: 203px;
+    height: 120px;
     background-color: darkblue;
     margin: 7px;
 }
@@ -54,4 +53,15 @@
     align-items: center;
     background: chocolate;
     height: 40px;   
+}
+
+.container-inputs{
+    display: inline-flex;
+    flex-flow: column;
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.input-select{
+    display: inline-flex;
 }

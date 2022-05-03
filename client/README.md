@@ -10,7 +10,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### `npm start`
-
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
@@ -119,3 +118,24 @@ Fresa
 Papelón/Limón
 Durazno
 Malta
+
+Proceso:
+Activo Whatsapp a las 7am
+Tomo pedido a mano en talonario que te mostré y en excel que te envié
+verifico pago
+saco comanda a la cocina
+recibo pedido de la cocina
+se lo entrego al motorizado viendo la comanda y dandole datos para la entrega
+Cuando no pone precio en delivery es Pickup, retiro en sebucan (trabajo de nacho entregar en el porton)
+
+Direccion Solo si en Pick up
+
+Verificar cobro
+
+Urgente Combo Pedidos verificar que no se repitan como hacer con los pagos
+
+quitar empanada logo
+
+quit
+
+https://monitordolarvenezuela.com/

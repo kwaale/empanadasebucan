@@ -2,12 +2,24 @@ import { GET_PRODUCTS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART } from "../actionsC
 
 const initialState = {
     products: [],
-    cart : []
+    cart : [],
+    order:{
+        id: 0,
+        client:"",
+        address:"",
+        observations:"",
+        reference:"",
+        pay_method:[],
+        delivery:false,
+        order_date: new Date(),
+        order_status: "Pendiente",
+        order_products: [],
+        total: 0.00
+    }
     // cart : [] || JSON.parse(localStorage.getItem('country'))
 }
 
 const productsReducer = (state = initialState, action) => {
-    console.log('productsReducer', action.payload, action.type)
     switch (action.type) {
         case GET_PRODUCTS:
             return {
