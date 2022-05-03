@@ -132,9 +132,10 @@ Direccion Solo si en Pick up
 
 Verificar cobro
 
-Combo Pedidos verificar que no se repitan como hacer con los pagos
+Urgente Combo Pedidos verificar que no se repitan como hacer con los pagos
 
 quitar empanada logo
 
 quit
 
+https://monitordolarvenezuela.com/
