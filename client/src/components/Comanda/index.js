@@ -7,6 +7,7 @@ const Comanda = () => {
     console.log("cart", cart);
     return (
         <div>
+            <h1>Comanda</h1>
             <div className='table-container'>
                 <table>
                     <thead>
@@ -34,6 +35,9 @@ const Comanda = () => {
             <div>
                 <Link to="/">
                     <h1>Volver</h1>
+                </Link>
+                <Link to="/orders">
+                    <h1>Ordenes</h1>
                 </Link>
             </div>
         </div>

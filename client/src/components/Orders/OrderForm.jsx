@@ -92,7 +92,7 @@ const OrderForm = ({ cart, bolivar, dolar }) => {
                 )}
                 <div>
                     <Link to="/comanda">
-                        <button onClick={()=>dispatch(addOrder(form))}>Comanda</button>
+                        <button onClick={()=>dispatch(addOrder(form))}>Cargar</button>
                     </Link>
                 </div>
             </div>

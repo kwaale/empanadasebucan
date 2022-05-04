@@ -6,6 +6,7 @@ import { getProducts, deleteCart } from "../../redux/actions/productsActions";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "./Cart";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -67,8 +68,8 @@ const Products = () => {
                   </div> : null}
             </div>
             <OrderForm cart={cart}
-            bolivar={parseFloat(tasa * totaliza(cart).toFixed(2)).toFixed(2)}
-            dolar={totaliza(cart).toFixed(2)}/>
+               bolivar={parseFloat(tasa * totaliza(cart).toFixed(2)).toFixed(2)}
+               dolar={totaliza(cart).toFixed(2)} />
          </div>
          <div>
             Tasa Bs./US$
@@ -76,6 +77,11 @@ const Products = () => {
                onChange={(e) => handleChange(e)}
                value={tasa} type="text"
             />
+         </div>
+         <div>
+            <Link to="/comanda">
+               <h1>Ver Comanda</h1>
+            </Link>
          </div>
       </div>
    )
