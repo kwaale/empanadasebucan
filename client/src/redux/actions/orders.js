@@ -27,7 +27,7 @@ export const addOrder = (payload)=>{
 //     }
 // }
 
-// export const deleteCart = (id)=>{
+// export const deleteProductCart = (id)=>{
 //     // console.log("Action id ", id)
 //     return {
 //         type:DELETE_PRODUCT_CART,

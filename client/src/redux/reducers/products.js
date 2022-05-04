@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART } from "../actionsConst";
+import { GET_PRODUCTS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART } from "../actionsConst";
 
 const initialState = {
     products: [],
@@ -67,6 +67,11 @@ const productsReducer = (state = initialState, action) => {
                     ...state,
                     cart: newCart
                 }
+            }
+        case DELETE_CART:
+            return {
+                ...state,
+                cart: []
             }
         default:
             return state;

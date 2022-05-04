@@ -1,5 +1,6 @@
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const ADD_PRODUCT_CART = "ADD_PRODUCT_CART";
 export const DELETE_PRODUCT_CART = "DELETE_PRODUCT_CART";
+export const DELETE_CART = "DELETE_CART";
 export const ADD_ORDER_ORDERS = "ADD_ORDER_ORDERS";
 // export const GET_PRODUCTS = "GET_PRODUCTS";S

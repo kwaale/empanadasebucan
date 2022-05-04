@@ -134,8 +134,6 @@ Verificar cobro
 
 Urgente Combo Pedidos verificar que no se repitan como hacer con los pagos
 
-quitar empanada logo
-
-quit
+No debe aceptar cargar solo con cosas en el cart, debe estar lleno todo el form
 
 https://monitordolarvenezuela.com/

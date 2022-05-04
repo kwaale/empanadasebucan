@@ -2,7 +2,7 @@ import ButtonProduct from "./ButtonProduct";
 import OrderForm from "../Orders/OrderForm";
 import "./products.css";
 import { useEffect } from "react";
-import { getProducts, deleteCart } from "../../redux/actions/productsActions";
+import { getProducts, deleteProductCart } from "../../redux/actions/productsActions";
 import { useSelector, useDispatch } from "react-redux";
 import Cart from "./Cart";
 import { useState } from "react";
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 const Products = () => {
 
    const { products, cart } = useSelector(state => state.productsReducer);
+   const { orders } = useSelector(state => state.orderReducer);
    const dispatch = useDispatch();
    // setea la tasa en con dato del local Storage o la deja en null
    const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
@@ -50,7 +51,7 @@ const Products = () => {
             {cart?.map((p, i) => {
                return (
                   <Cart
-                     deleteCart={() => dispatch(deleteCart(p.id))}
+                     deleteProductCart={() => dispatch(deleteProductCart(p.id))}
                      quantity={p.quantity}
                      name={p.name}
                      total={p.total}
@@ -79,12 +80,11 @@ const Products = () => {
             />
          </div>
          <div>
-            <Link to="/comanda">
-               <h1>Ver Comanda</h1>
-            </Link>
-            <Link to="/ordenes">
-               <h1>Ordenes</h1>
-            </Link>
+            {orders.length && cart.length ?
+            <div>
+               <Link to="/comanda"><h1>Ver Comanda</h1></Link>
+               <Link to="/ordenes"><h1>Ordenes</h1></Link>
+            </div>  : null}
          </div>
       </div>
    )

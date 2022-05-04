@@ -1,8 +1,8 @@
 import './products.css';
 
-const Cart = ({ deleteCart, quantity, name, total, price }) => {
+const Cart = ({ deleteProductCart, quantity, name, total, price }) => {
     return (
-        <button className='btn-cart' onClick={() => deleteCart()}>
+        <button className='btn-cart' onClick={() => deleteProductCart()}>
             <p>{quantity} {name}</p>
             <p>$ {total?.toFixed(2) || price.toFixed(2)}</p>
         </button>
