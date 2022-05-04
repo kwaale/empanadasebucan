@@ -82,6 +82,9 @@ const Products = () => {
             <Link to="/comanda">
                <h1>Ver Comanda</h1>
             </Link>
+            <Link to="/ordenes">
+               <h1>Ordenes</h1>
+            </Link>
          </div>
       </div>
    )

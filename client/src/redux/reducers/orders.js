@@ -5,19 +5,19 @@ const initialState = {
     orders: [],
     orderDetail: {},
     // no funciona order
-    order:{
-        id: 0,
-        client:"",
-        address:"",
-        observations:"",
-        reference:"",
-        payment_methods:[],
-        delivery:false,
-        order_date: new Date(),
-        order_status: "Pendiente",
-        order_products: [],
-        total: 0.00
-    }
+    // order:{
+    //     id: 0,
+    //     client:"",
+    //     address:"",
+    //     observations:"",
+    //     reference:"",
+    //     payment_methods:[],
+    //     delivery:false,
+    //     order_date: new Date(),
+    //     order_status: "Pendiente",
+    //     order_products: [],
+    //     total: 0.00
+    // }
     // order : JSON.parse(localStorage.getItem('country')) || {}
     // order : JSON.parse(localStorage.getItem('country')) || {}
 }
