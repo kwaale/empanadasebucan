@@ -1,19 +1,30 @@
 import forma_pagos from '../../seeds/forma_pagos.json';
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addOrder } from "../../redux/actions/orders";
 
 
-const OrtherForm = ({ cart }) => {
+const OrderForm = ({ cart, bolivar, dolar }) => {
+
+    const dispatch = useDispatch();
     const [payment_method, setPayment_method] = useState('');
     const [form, setForm] = useState({
         name: '',
+        order_date: new Date(),
         observation: '',
         delivery: false,
+        order_status: "Pendiente",
         reference: '',
         payment_methods: [],
-        cart: cart
+        cart: cart,
+        address: '',
+        total:{
+            bolivar,
+            dolar
+            }
     });
-
+    
     const handleChange = (e) => {
         const { name, value } = e.target;
         // switch delivery
@@ -55,7 +66,7 @@ const OrtherForm = ({ cart }) => {
                 Cliente
                 <input onChange={handleChange} name="name" type="text" />
                 Observacion
-                <input onChange={handleChange} name="obsevation" type="text" />
+                <input onChange={handleChange} name="observation" type="text" />
                 Referencia
                 <input onChange={handleChange} name="reference" type="text" />
                 {/* switch delivery */}
@@ -65,6 +76,7 @@ const OrtherForm = ({ cart }) => {
                     </div> : null}
                 {/* Metodo de pago */}
                 <select onChange={handleChange} name="payment_method">
+                    <option>Metodo de Pago</option>
                     {forma_pagos.map((p, i) => {
                         return (
                             <option key={i} value={p}>{p}</option>
@@ -80,11 +92,11 @@ const OrtherForm = ({ cart }) => {
                 )}
                 <div>
                     <Link to="/comanda">
-                        <button onClick={(e) => addPayMethod(e)}>Comanda</button>
+                        <button onClick={()=>dispatch(addOrder(form))}>Comanda</button>
                     </Link>
                 </div>
             </div>
         </div>
     )
 }
-export default OrtherForm;
+export default OrderForm;

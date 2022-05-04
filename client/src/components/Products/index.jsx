@@ -1,5 +1,5 @@
 import ButtonProduct from "./ButtonProduct";
-import OrtherForm from "../Orthers/OrtherForm";
+import OrderForm from "../Orders/OrderForm";
 import "./products.css";
 import { useEffect } from "react";
 import { getProducts, deleteCart } from "../../redux/actions/productsActions";
@@ -66,7 +66,9 @@ const Products = () => {
                      </h4>
                   </div> : null}
             </div>
-            <OrtherForm cart={cart} />
+            <OrderForm cart={cart}
+            bolivar={parseFloat(tasa * totaliza(cart).toFixed(2)).toFixed(2)}
+            dolar={totaliza(cart).toFixed(2)}/>
          </div>
          <div>
             Tasa Bs./US$
