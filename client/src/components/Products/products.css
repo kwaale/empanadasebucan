@@ -34,11 +34,14 @@
 }
 
 
-.content-cart-products{
+.content-cart-form{
     display: inline-flex;
     flex-flow: column;
-    margin-top: 10px;
+    margin-bottom: 15px;
+    width: min-content;
+    text-align: left;
 }
+
 .btn-cart{
     display: flex;
     justify-content: space-between;
@@ -53,15 +56,4 @@
     align-items: center;
     background: chocolate;
     height: 40px;   
-}
-
-.container-inputs{
-    display: inline-flex;
-    flex-flow: column;
-    margin-top: 10px;
-    text-align: justify;
-}
-
-.input-select{
-    display: inline-flex;
 }
