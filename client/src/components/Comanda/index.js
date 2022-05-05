@@ -2,12 +2,13 @@ import './Comanda.css'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteCart } from '../../redux/actions/productsActions';
+import { deleteCart } from '../../redux/actions/orders';
 
 const Comanda = () => {
     // Extraemos la ultima orden de todas
     const order = useSelector(state => state.orderReducer.orders[state.orderReducer.orders.length - 1]);
-    const { cart } = useSelector(state => state.productsReducer);
+    console.log(order);
+    const { cart } = useSelector(state => state.orderReducer);
     const dispatch = useDispatch();
 
     return (

@@ -2,9 +2,10 @@ import ButtonProduct from "./ButtonProduct";
 import OrderForm from "../Orders/OrderForm";
 import "./products.css";
 import { useEffect } from "react";
-import { getProducts, deleteProductCart } from "../../redux/actions/productsActions";
+import { getProducts } from "../../redux/actions/products";
+import { deleteProductCart } from "../../redux/actions/orders";
 import { useSelector, useDispatch } from "react-redux";
-import Cart from "./Cart";
+import Cart from "../Orders/Cart";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -12,12 +13,12 @@ import { Link } from "react-router-dom";
 
 const Products = () => {
 
-   const { products, cart } = useSelector(state => state.productsReducer);
-   const { orders } = useSelector(state => state.orderReducer);
+   const { products } = useSelector(state => state.productsReducer);
+   const { orders, cart, order } = useSelector(state => state.orderReducer);
    const dispatch = useDispatch();
    // setea la tasa en con dato del local Storage o la deja en null
    const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
-
+   // console.log("products", products);
    useEffect(() => {
       dispatch(getProducts());
    }, [dispatch]);
@@ -64,13 +65,17 @@ const Products = () => {
                   <div>
                      <h2>Total</h2>
                      <h4>
-                        US$  {totaliza(cart).toFixed(2)} / Bs. {parseFloat(tasa * totaliza(cart).toFixed(2)).toFixed(2)}
+                        US$ {totaliza(cart).toFixed(2)} / Bs. {parseFloat(tasa * totaliza(cart).toFixed(2)).toFixed(2)}
                      </h4>
                   </div> : null}
             </div>
-            <OrderForm cart={cart}
-               bolivar={parseFloat(tasa * totaliza(cart).toFixed(2)).toFixed(2)}
-               dolar={totaliza(cart).toFixed(2)} />
+            <OrderForm
+               cart={cart}
+               total={{
+                  dolar: totaliza(cart).toFixed(2),
+                  bolivar: parseFloat(tasa * totaliza(cart).toFixed(2)).toFixed(2)
+               }}
+                />
          </div>
          <div>
             Tasa Bs./US$

@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART} from "../actionsConst";
+import { GET_PRODUCTS } from "../actionsConst";
 import { products } from "../../seeds/products";
 // export function addMovieFavorite(payload) {
 //     return { type: "ADD_MOVIE_FAVORITE", payload };
@@ -18,27 +18,5 @@ export const getProducts = ()=>{
     return {
         type:GET_PRODUCTS,
         payload:products
-    }
-}
-
-export const addCart = (id)=>{
-    return {
-        type:ADD_PRODUCT_CART,
-        payload:id
-    }
-}
-
-export const deleteProductCart = (id)=>{
-    // console.log("Action id ", id)
-    return {
-        type:DELETE_PRODUCT_CART,
-        payload:id
-    }
-}
-
-export const deleteCart = ()=>{
-    console.log("deleteCart Action ")
-    return {
-        type:DELETE_CART
     }
 }

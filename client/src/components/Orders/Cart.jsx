@@ -1,4 +1,4 @@
-import './products.css';
+import './Order.css';
 
 const Cart = ({ deleteProductCart, quantity, name, total, price }) => {
     return (

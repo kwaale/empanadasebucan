@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addOrder } from "../../redux/actions/orders";
+import { useEffect } from 'react';
 
-
-const OrderForm = ({ cart, bolivar, dolar }) => {
-
+const OrderForm = ({ cart, total }) => {
+    // console.log("props OrderForm", cart, bolivar, dolar);
     const dispatch = useDispatch();
     const [payment_method, setPayment_method] = useState('');
     const [form, setForm] = useState({
@@ -17,15 +17,13 @@ const OrderForm = ({ cart, bolivar, dolar }) => {
         order_status: "Pendiente",
         reference: '',
         payment_methods: [],
-        cart: cart,
+        cart,
         address: '',
-        total:{
-            bolivar,
-            dolar
-            }
     });
     
+    console.log("form", form);
     const handleChange = (e) => {
+        setForm({ ...form,cart});
         const { name, value } = e.target;
         // switch delivery
         if (name === 'delivery') {
@@ -39,8 +37,8 @@ const OrderForm = ({ cart, bolivar, dolar }) => {
             ...form,
             [name]: value
         });
-        console.log(form);
     }
+    
     const addPayMethod = (e) => {
         // controlar que solo agregue un metodo de pago
         e.preventDefault();
@@ -92,7 +90,7 @@ const OrderForm = ({ cart, bolivar, dolar }) => {
                 )}
                 <div>
                     <Link to="/comanda">
-                        <button onClick={()=>dispatch(addOrder(form))}>Cargar</button>
+                        <button onClick={()=>dispatch(addOrder(form,form.total = total))}>Cargar</button>
                     </Link>
                 </div>
             </div>

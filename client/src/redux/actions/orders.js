@@ -1,4 +1,4 @@
-import { ADD_ORDER_ORDERS } from "../actionsConst";
+import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART } from "../actionsConst";
 // export function addMovieFavorite(payload) {
 //     return { type: "ADD_MOVIE_FAVORITE", payload };
 //   }
@@ -14,23 +14,32 @@ import { ADD_ORDER_ORDERS } from "../actionsConst";
 //   }
 
 export const addOrder = (payload)=>{
+    console.log('Action addOrder', payload);
     return {
         type:ADD_ORDER_ORDERS,
         payload
     }
 }
 
-// export const addCart = (id)=>{
-//     return {
-//         type:ADD_PRODUCT_CART,
-//         payload:id
-//     }
-// }
+export const addProductCart = (id)=>{
+    console.log('addProductCart', id)
+    return {
+        type:ADD_PRODUCT_CART,
+        payload:id
+    }
+}
 
-// export const deleteProductCart = (id)=>{
-//     // console.log("Action id ", id)
-//     return {
-//         type:DELETE_PRODUCT_CART,
-//         payload:id
-//     }
-// }
+export const deleteProductCart = (id)=>{
+    // console.log("Action id ", id)
+    return {
+        type:DELETE_PRODUCT_CART,
+        payload:id
+    }
+}
+
+export const deleteCart = ()=>{
+    console.log("deleteCart Action ")
+    return {
+        type:DELETE_CART
+    }
+}

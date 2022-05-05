@@ -41,19 +41,3 @@
     width: min-content;
     text-align: left;
 }
-
-.btn-cart{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: orange;
-    height: 40px;   
-}
-
-.btn-cart:hover{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: chocolate;
-    height: 40px;   
-}

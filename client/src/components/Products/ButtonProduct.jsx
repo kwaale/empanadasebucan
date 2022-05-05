@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { addCart } from "../../redux/actions/productsActions";
+import { addProductCart } from "../../redux/actions/orders";
 import "./products.css";
 
 const ButtonProduct = ({product}) => {
@@ -7,7 +7,7 @@ const ButtonProduct = ({product}) => {
     const dispatch = useDispatch();
     return(
         <div>
-            <button className="product" onClick={()=>{dispatch(addCart(product.id))}}>
+            <button className="product" onClick={()=>{dispatch(addProductCart(product.id))}}>
                 <div className="card-body">
                 <h3 className="card-title">{product.name}</h3>
                 <p>$ {product.price.toFixed(2)}</p>
