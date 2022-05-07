@@ -8,7 +8,6 @@ const Comanda = () => {
     // Extraemos la ultima orden de todas
     const order = useSelector(state => state.orderReducer.orders[state.orderReducer.orders.length - 1]);
     console.log(order);
-    const { cart } = useSelector(state => state.orderReducer);
     const dispatch = useDispatch();
 
     return (
@@ -84,17 +83,3 @@ const Comanda = () => {
     );
 }
 export default Comanda;
-// let arr = ["hola", "mundo", "como", "estas"];
-/**
- * address: "Lujan de Cuyo, Mendoza, Aregentina"
-cart: (3) [{…}, {…}, {…}]
-delivery: true
-id: 1
-name: "Clie"
-observation: "prueba"
-order_date: Wed May 04 2022 15:57:34 GMT-0300 (hora estándar de Argentina) {}
-order_status: "Pendiente"
-payment_methods: ['Pago Movil']
-reference: "Referencia"
-total: {bolivar: '10.20', dolar: '3.00'}
- */

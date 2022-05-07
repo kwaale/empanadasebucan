@@ -14,6 +14,7 @@ import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART } 
 //   }
 
 export const addOrder = (payload)=>{
+    const cart = payload.cart;
     console.log('Action addOrder', payload);
     return {
         type:ADD_ORDER_ORDERS,
@@ -43,3 +44,7 @@ export const deleteCart = ()=>{
         type:DELETE_CART
     }
 }
+
+// COMBO screen
+// 4 normales
+// 2 jugos

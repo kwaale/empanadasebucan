@@ -4,20 +4,6 @@ import { products } from "../../seeds/products";
 
 const initialState = {
     orders: [],
-    // order:{
-    //     id: 0,
-    //     client:"",
-    //     address:"",
-    //     observations:"",
-    //     reference:"",
-    //     pay_method:[],
-    //     cart:[],
-    //     delivery:false,
-    //     order_date: new Date(),
-    //     order_status: "Pendiente",
-    //     order_products: [],
-    //     total: 0.00
-    // },
     cart:[]
     }
     // order : JSON.parse(localStorage.getItem('country')) || {}

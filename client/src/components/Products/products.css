@@ -1,14 +1,54 @@
-/* .products{
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(
-            150px,
-            1fr
-        )
-    );
-    gap: 16px;
-} */
+.btn-normal{
+    color: white;
+    padding: -19px;
+    width: 150px;
+    height: 120px;
+    background-color: gray;
+    margin: 7px;
+}
+.btn-normal:hover{
+    background-color: #00a8ff;
+}
+.btn-especial{
+    color: white;
+    padding: -19px;
+    width: 150px;
+    height: 120px;
+    background-color: darkblue;
+    margin: 7px;
+}
+
+.btn-especial:hover{
+    background-color: #00a8ff;
+}
+
+.btn-gourmet{
+    color: white;
+    padding: -19px;
+    width: 150px;
+    height: 120px;
+    background-color: brown;
+    margin: 7px;
+}
+
+.btn-gourmet:hover{
+    background-color: #00a8ff;
+}
+
+.btn-bebida{
+    color: white;
+    padding: -19px;
+    width: 150px;
+    height: 120px;
+    background-color: darkgrey;
+    margin: 7px;
+}
+
+.btn-bebida:hover{
+    background-color: #00a8ff;
+}
+
+
 .products {
     display: inline-flex;
     width: 90%;

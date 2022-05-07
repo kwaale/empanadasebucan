@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addOrder } from "../../redux/actions/orders";
-import { useEffect } from 'react';
 
 const OrderForm = ({ cart, total }) => {
     // console.log("props OrderForm", cart, bolivar, dolar);
@@ -56,6 +55,14 @@ const OrderForm = ({ cart, total }) => {
         aux.splice(e.target.name, 1);
         setForm({ ...form, payment_methods: aux });
     }
+
+    const validaForm = () => {
+        if (form.name === '') return false;
+        if (form.delivery && form.address === '') return false;
+        if (form.payment_methods.length === 0) return false;
+        return true;
+    }
+            
     return (
         <div className="container-form">
             <div onSubmit={() => console.log("Submit")}>
@@ -89,9 +96,11 @@ const OrderForm = ({ cart, total }) => {
                 }
                 )}
                 <div>
-                    <Link to="/comanda">
-                        <button onClick={()=>dispatch(addOrder(form,form.total = total))}>Cargar</button>
-                    </Link>
+                    {validaForm() ? <>
+                        <Link to="/comanda">
+                            <button onClick={() => dispatch(addOrder(form, form.total = total))}>Generar</button>
+                        </Link>
+                    </> : null}
                 </div>
             </div>
         </div>

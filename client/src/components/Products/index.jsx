@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 const Products = () => {
 
    const { products } = useSelector(state => state.productsReducer);
-   const { orders, cart, order } = useSelector(state => state.orderReducer);
+   const { orders, cart } = useSelector(state => state.orderReducer);
    const dispatch = useDispatch();
    // setea la tasa en con dato del local Storage o la deja en null
    const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
@@ -85,11 +85,13 @@ const Products = () => {
             />
          </div>
          <div>
-            {orders.length && cart.length ?
+            {/* descomentar */}
+            {/* {(orders.length && orders[orders.length - 1].cart) ?  */}
             <div>
-               <Link to="/comanda"><h1>Ver Comanda</h1></Link>
+               <Link to="/comanda"><h1>Ultima Comanda</h1></Link>
                <Link to="/ordenes"><h1>Ordenes</h1></Link>
-            </div>  : null}
+            </div> 
+             {/* : null} */}
          </div>
       </div>
    )
