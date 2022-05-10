@@ -7,8 +7,22 @@
 .products-comanda{
     display: flex;
 }
-.cantidad-comanda{
-    
-    
-    
+.table-text{   
+    text-align: left;
+}
+.table-text-neg{
+    text-align: left;
+    font-weight: bold;
+}
+table{
+    border:6px solid orange;
+    background: chocolate;
+    border-collapse: collapse;
+
+}
+th,td {
+    border: 1px solid orange;   
+}
+.btn-new-order{
+    background: orange;
 }

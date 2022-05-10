@@ -1,39 +1,98 @@
 import './Comanda.css'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { deleteCart } from '../../redux/actions/orders';
 
 const Comanda = () => {
-    const { cart } = useSelector(state => state.productsReducer);
-    console.log("cart", cart);
+    // Extraemos la ultima orden de todas
+    const order = useSelector(state => state.orderReducer.orders[state.orderReducer.orders.length - 1]);
+    const tasa = parseFloat(JSON.parse(localStorage.getItem('tasa')));
+
+    console.log("order",order);
+    const dispatch = useDispatch();
+
     return (
         <div>
+            <h1>Comanda</h1>
             <div className='table-container'>
+                {/* colocar id Comanda */}
+                <table className='table-id'>
+                    <thead>
+                        <tr>
+                            <th>ID Comanda</th>
+                            <th>{order.id}</th>
+                        </tr>
+                    </thead>
+                </table>
                 <table>
                     <thead>
                         <tr>
-                            <th>Producto</th>
+                            <th>Empanada</th>
                             <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Sub-total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {cart?.map((cart, i) => {
-                            return (
-                                <tr key={i}>
-                                    <td className='products-comanda'>{cart.name}</td>
-                                    <td className='cantidad-comanda'>{cart.quantity}</td>
-                                </tr>
-                            )
-                        }
-                        )}
+                        {/* Productos */}
+                        {order.cart.map(product => (
+                            <tr key={product.id}>
+                                <td className='table-text'>{product.name}</td>
+                                <td>{product.quantity}</td>
+                                <td>{product.price}</td>
+                                <td>{product.quantity * product.price}</td>
+                            </tr>
+                        ))}
+                        <tr>
+                            <td className='table-text-neg' >Cliente</td>
+                            <td className='table-text'>{order.name}</td>
+                            <td className='table-text-neg'>Total</td>
+                            <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td className='table-text-neg'>Direcion</td>
+                            <td className='table-text'>{order.address}</td>
+                            <td className='table-text-neg'>Metodos de Pago</td>
+                            <td className='table-text'>{order.payment_methods.join(' / ')}</td>
+                            {/* <td className='table-text'>{order.payment_methods.map((m, i) => {
+                                return (
+                                    <p key={i}>{m}</p>
+                                )
+                            })}</td> */}
+                        </tr>
+                        <tr>
+                            <td className='table-text-neg'>Observacion</td>
+                            <td className='table-text'>{order.reference}</td>
+                            <td className='table-text-neg'>Referencia</td>
+                            <td className='table-text'>{order.reference}</td>
+                        </tr>
+                        {order.combos && order.combos.map((p, i) => (
+                        <tr key= {i}>
+                            <td className='table-text-neg'>{p.name}</td>
+                            <td className='table-text'>{p.quantity}</td>
+                            <td className='table-text-neg'>Descuento</td>
+                            <td className='table-text'>{p.descuento}</td>
+                        </tr>
+                        ))}
+                        
+                                <tr>
+                                <td className='table-text-neg'>Total (descuento):</td>
+                                {order.descuento ? (<td className='table-text'>{(order.total - order.descuento).toFixed(2)}</td>
+                            ) : (<td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>)}
+                            </tr>                     
                     </tbody>
                 </table>
             </div>
             <div>
-                <button onClick={()=>window.print()}>Impirimir</button>
+                <button onClick={() => window.print()}>Impirimir</button>
             </div>
             <div>
                 <Link to="/">
-                    <h1>Volver</h1>
+                    <button className='btn-new-order' onClick={() => dispatch(deleteCart())}>Generar Nueva Orden</button>                                        
+                </Link>
+                <Link to="/ordenes">
+                    <h1>Ordenes</h1>
                 </Link>
             </div>
         </div>

@@ -1,29 +1,26 @@
 import ButtonProduct from "./ButtonProduct";
+import OrderForm from "../Orders/OrderForm";
 import "./products.css";
 import { useEffect } from "react";
-import { getProducts, deleteCart } from "../../redux/actions/productsActions";
+import { getProducts } from "../../redux/actions/products";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from 'react-router-dom';
-import Cart from "./Cart";
-import MetodosPago from "./MetodosPago";
+import CartProducts from "../CartProducts";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Total from "../CartProducts/Total";
+
 
 
 const Products = () => {
 
-   const { products, cart } = useSelector(state => state.productsReducer);
+   const { products } = useSelector(state => state.productsReducer);
+   const { order } = useSelector(state => state.orderReducer);
    const dispatch = useDispatch();
-
+   
    useEffect(() => {
       dispatch(getProducts());
    }, [dispatch]);
-   // funcion sumatoria eliminar
-   const totaliza = (arr) => {
-      let sum = 0;
-      arr.forEach(e => {
-         sum += e.total || e.price
-      })
-      return sum;
-   }
+
    return (
       <div>
          <div className="products">
@@ -31,53 +28,24 @@ const Products = () => {
                <ButtonProduct key={product.id} product={product} />
             ))}
          </div>
-         <div className="content-cart-products">
-            {cart?.map((p, i) => {
-               return (
-                  <Cart
-                     deleteCart={() => dispatch(deleteCart(p.id))}
-                     quantity={p.quantity}
-                     name={p.name}
-                     total={p.total}
-                     price={p.price}
-                     key={i} />
-               )
-            })}
-            <div>
-               {cart.length ? <h2>Total $ {totaliza(cart).toFixed(2)}</h2> : null}
-            </div>
-            <div className="container-inputs">
-               Cliente
-               <input type="text" />
-               Direccion
-               <input type="text" />
-               Observacion
-               <input type="text" />
-               Referencia
-               <input type="text" />
-               Delivery/Pick Up
-               <input type="text" />
-               Metodo de Pago
-               <MetodosPago />
-               <input type="text" />
-            </div>
+         <div className="content-cart-form">
+            <CartProducts />
+            <Total />
+            <OrderForm
+               cart={order.cart}
+               total={order.total}
+                />
          </div>
          <div>
-            <nav>
-               <Link to="/comanda">
-                  <button onClick={()=>console.log("comanda")}>Comanda</button>
-               </Link>
-            </nav>
+            {/* descomentar */}
+            {/* {(orders.length && orders[orders.length - 1].order.cart) ?  */}
+            <div>
+               <Link to="/comanda"><h1>Ultima Comanda</h1></Link>
+               <Link to="/ordenes"><h1>Ordenes</h1></Link>
+            </div> 
+             {/* : null} */}
          </div>
       </div>
    )
 }
 export default Products;
-
-/**
- * Cliente
- * Metodo de pago
- * Direccion
- * Observacion
- * Referencia
- */
