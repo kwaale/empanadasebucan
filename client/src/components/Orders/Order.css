@@ -1,3 +1,47 @@
 .container-form{
     display: inline-flex;
 }
+
+.btn-devliveri-true{
+    background: green;
+    width: 100%;
+}
+.btn-devliveri-false{
+    background: red;
+    width: 100%;
+}
+.btn-devliveri-true:hover{
+    background: grey;
+}
+.btn-devliveri-false:hover{
+    background: grey;
+}
+
+.input-tasa{
+    width: 30%;
+}
+.tasa{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.btn-pay-added{
+    background: green;
+    width: 100%;
+}
+
+.btn-pay-add{
+    
+    width: 100%;
+}
+
+.btn-comanda{
+    margin-top: 20px;
+    padding: 15px;
+    background: chocolate;
+    width: 100%;
+}
+
+.btn-comanda:hover{
+    background: grey;
+}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteCart, addOrder } from '../../redux/actions/orders';
+import { useEffect } from 'react';
 
 const Comanda = () => {
     // Extraemos la ultima orden de todas
@@ -11,6 +12,9 @@ const Comanda = () => {
 
     console.log("order", order);
     const dispatch = useDispatch();
+    // useEffect(() => {
+    //     console.log("useEffect");
+    // },[order]);
 
     return (
         <div>
@@ -36,7 +40,7 @@ const Comanda = () => {
                     </thead>
                     <tbody>
                         {/* Productos */}
-                        {order.cart.map(product => (
+                        {order.cart?.map(product => (
                             <tr key={product.id}>
                                 <td className='table-text'>{product.name}</td>
                                 <td>{product.quantity}</td>
@@ -64,7 +68,7 @@ const Comanda = () => {
                         <tr>
                             <td className='table-text-neg'>Observacion</td>
                             <td className='table-text'>{order.reference}</td>
-                            <td className='table-text-neg'>Total</td>
+                            <td className='table-text-neg'>Sub-Total</td>
                             <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
 
                         </tr>
@@ -80,7 +84,7 @@ const Comanda = () => {
                         <tr>
                             <td className='table-text-neg'></td>
                             <td className='table-text-neg'></td>
-                            <td className='table-text-neg'>Total (descuento):</td>
+                            <td className='table-text-neg'>Total (descuento)</td>
                             {order.descuento ? (<td className='table-text'>US$ {(order.total - order.descuento).toFixed(2)} / Bs. {((order.total - order.descuento) * tasa).toFixed(2)}</td>
                             ) : (<td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>)}
                         </tr>
@@ -102,9 +106,9 @@ const Comanda = () => {
                     <button className='btn-new-order' onClick={() => dispatch(deleteCart())}>Eliminar</button>
                 </Link>
             </div>
-                <Link to="/ordenes">
+                {/* <Link to="/ordenes">
                     <h1>Ordenes</h1>
-                </Link>
+                </Link> */}
             </div>
         </div>
     );

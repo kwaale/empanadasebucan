@@ -40,8 +40,8 @@ const Products = () => {
             {/* descomentar */}
             {/* {(orders.length && orders[orders.length - 1].order.cart) ?  */}
             <div>
-               <Link to="/comanda"><h1>Ultima Comanda</h1></Link>
-               <Link to="/ordenes"><h1>Ordenes</h1></Link>
+               {/* <Link to="/comanda"><h1>Ultima Comanda</h1></Link>
+               <Link to="/ordenes"><h1>Ordenes</h1></Link> */}
             </div> 
              {/* : null} */}
          </div>

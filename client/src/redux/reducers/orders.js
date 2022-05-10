@@ -8,7 +8,7 @@ const initialState = {
     order: {
         id: null,
         name:"",
-        address: "",
+        address: "Pick Up",
         order_date: "",
         observation:"",
         delivery:false,
@@ -44,11 +44,21 @@ const orderReducer = (state = initialState, action) => {
         case GENERATE_ORDER:
             // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
             console.log('ADD_ORDER_ORDERS', action.payload);
-            action.payload.id = newId();
-            action.payload.order_date = new Date().toLocaleDateString();
+           
+            console.log('state.order.total)',state.order.total);
             return {
                 ...state,
-                order: detectaCombos(action.payload),
+                order: detectaCombos({
+                    ...state.order,
+                    id:newId(),
+                    order_date:new Date().toLocaleDateString(),
+                    observation:action.payload.observation,
+                    delivery:action.payload.delivery,
+                    order_status:action.payload.order_status,
+                    reference:action.payload.reference,
+                    payment_methods:action.payload.payment_methods,
+                    address:action.payload.address,
+                }),
             }
         case ADD_PRODUCT_CART:
             // console.log('ADD_PRODUCT_CART', action.payload);

@@ -24,7 +24,7 @@ export const addOrder = (order)=>{
 }
 
 export const orderGenerator = (order)=>{
-    // // console.log('addProductCart', id)
+    console.log('orderGenerator', order)
     return {
         type:GENERATE_ORDER,
         payload:order
