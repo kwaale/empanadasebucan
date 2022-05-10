@@ -7,7 +7,9 @@ import { deleteCart } from '../../redux/actions/orders';
 const Comanda = () => {
     // Extraemos la ultima orden de todas
     const order = useSelector(state => state.orderReducer.orders[state.orderReducer.orders.length - 1]);
-    console.log(order);
+    const tasa = parseFloat(JSON.parse(localStorage.getItem('tasa')));
+
+    console.log("order",order);
     const dispatch = useDispatch();
 
     return (
@@ -46,7 +48,7 @@ const Comanda = () => {
                             <td className='table-text-neg' >Cliente</td>
                             <td className='table-text'>{order.name}</td>
                             <td className='table-text-neg'>Total</td>
-                            <td>US$ {order.total.dolar} / Bs. {order.total.bolivar}</td>
+                            <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td className='table-text-neg'>Direcion</td>
@@ -65,6 +67,20 @@ const Comanda = () => {
                             <td className='table-text-neg'>Referencia</td>
                             <td className='table-text'>{order.reference}</td>
                         </tr>
+                        {order.combos && order.combos.map((p, i) => (
+                        <tr key= {i}>
+                            <td className='table-text-neg'>{p.name}</td>
+                            <td className='table-text'>{p.quantity}</td>
+                            <td className='table-text-neg'>Descuento</td>
+                            <td className='table-text'>{p.descuento}</td>
+                        </tr>
+                        ))}
+                        
+                                <tr>
+                                <td className='table-text-neg'>Total (descuento):</td>
+                                {order.descuento ? (<td className='table-text'>{(order.total - order.descuento).toFixed(2)}</td>
+                            ) : (<td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>)}
+                            </tr>                     
                     </tbody>
                 </table>
             </div>

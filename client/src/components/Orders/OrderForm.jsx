@@ -16,13 +16,18 @@ const OrderForm = ({ cart, total }) => {
         order_status: "Pendiente",
         reference: '',
         payment_methods: [],
-        cart,
+        cart:[],
+        total:0.00,
         address: '',
     });
     
-    console.log("form", form);
+    // console.log("form", form);
     const handleChange = (e) => {
-        setForm({ ...form,cart});
+        if(form.total === 0 || form.cart.length === 0)setForm({ ...form,
+                cart,
+                total
+            });
+       
         const { name, value } = e.target;
         // switch delivery
         if (name === 'delivery') {
@@ -98,7 +103,7 @@ const OrderForm = ({ cart, total }) => {
                 <div>
                     {validaForm() ? <>
                         <Link to="/comanda">
-                            <button onClick={() => dispatch(addOrder(form, form.total = total))}>Generar</button>
+                            <button onClick={() => dispatch(addOrder(form))}>Generar</button>
                         </Link>
                     </> : null}
                 </div>

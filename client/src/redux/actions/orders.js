@@ -13,20 +13,20 @@ import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART } 
 //     };
 //   }
 
-export const addOrder = (payload)=>{
-    const cart = payload.cart;
-    console.log('Action addOrder', payload);
+export const addOrder = (order)=>{
+    // const cart = payload.cart;
+    // console.log('Action addOrder', payload);
     return {
         type:ADD_ORDER_ORDERS,
-        payload
+        payload:order
     }
 }
 
-export const addProductCart = (id)=>{
-    console.log('addProductCart', id)
+export const addProductCart = (product)=>{
+    // // console.log('addProductCart', id)
     return {
         type:ADD_PRODUCT_CART,
-        payload:id
+        payload:product
     }
 }
 
@@ -39,7 +39,7 @@ export const deleteProductCart = (id)=>{
 }
 
 export const deleteCart = ()=>{
-    console.log("deleteCart Action ")
+    // console.log("deleteCart Action ")
     return {
         type:DELETE_CART
     }
