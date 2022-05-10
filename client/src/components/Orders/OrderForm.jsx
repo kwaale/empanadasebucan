@@ -103,10 +103,7 @@ const OrderForm = ({ cart, total }) => {
                 <div>
                     {validaForm() ? <>
                         <Link to="/comanda">
-                            <button onClick={() => {
-                                dispatch(orderGenerator(form));
-                                console.log("form",form);
-                                }}>Generar</button>
+                            <button onClick={() => dispatch(orderGenerator(form))}>Comanda</button>
                         </Link>
                     </> : null}
                 </div>
