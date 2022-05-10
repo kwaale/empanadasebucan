@@ -1,4 +1,5 @@
-import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART } from "../actionsConst";
+import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART, GENERATE_ORDER } from "../actionsConst";
+
 // export function addMovieFavorite(payload) {
 //     return { type: "ADD_MOVIE_FAVORITE", payload };
 //   }
@@ -18,6 +19,14 @@ export const addOrder = (order)=>{
     // console.log('Action addOrder', payload);
     return {
         type:ADD_ORDER_ORDERS,
+        payload:order
+    }
+}
+
+export const orderGenerator = (order)=>{
+    // // console.log('addProductCart', id)
+    return {
+        type:GENERATE_ORDER,
         payload:order
     }
 }

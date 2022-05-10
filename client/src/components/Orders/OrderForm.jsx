@@ -2,7 +2,7 @@ import forma_pagos from '../../seeds/forma_pagos.json';
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addOrder } from "../../redux/actions/orders";
+import { orderGenerator } from "../../redux/actions/orders";
 
 const OrderForm = ({ cart, total }) => {
     // console.log("props OrderForm", cart, bolivar, dolar);
@@ -103,7 +103,10 @@ const OrderForm = ({ cart, total }) => {
                 <div>
                     {validaForm() ? <>
                         <Link to="/comanda">
-                            <button onClick={() => dispatch(addOrder(form))}>Generar</button>
+                            <button onClick={() => {
+                                dispatch(orderGenerator(form));
+                                console.log("form",form);
+                                }}>Generar</button>
                         </Link>
                     </> : null}
                 </div>

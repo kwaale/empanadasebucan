@@ -2,14 +2,14 @@ import './Comanda.css'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteCart } from '../../redux/actions/orders';
+import { deleteCart, addOrder } from '../../redux/actions/orders';
 
 const Comanda = () => {
     // Extraemos la ultima orden de todas
-    const order = useSelector(state => state.orderReducer.orders[state.orderReducer.orders.length - 1]);
+    const { order } = useSelector(state => state.orderReducer);
     const tasa = parseFloat(JSON.parse(localStorage.getItem('tasa')));
 
-    console.log("order",order);
+    console.log("order", order);
     const dispatch = useDispatch();
 
     return (
@@ -47,8 +47,8 @@ const Comanda = () => {
                         <tr>
                             <td className='table-text-neg' >Cliente</td>
                             <td className='table-text'>{order.name}</td>
-                            <td className='table-text-neg'>Total</td>
-                            <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
+                            <td className='table-text-neg'>Referencia</td>
+                            <td className='table-text'>{order.reference}</td>
                         </tr>
                         <tr>
                             <td className='table-text-neg'>Direcion</td>
@@ -64,23 +64,26 @@ const Comanda = () => {
                         <tr>
                             <td className='table-text-neg'>Observacion</td>
                             <td className='table-text'>{order.reference}</td>
-                            <td className='table-text-neg'>Referencia</td>
-                            <td className='table-text'>{order.reference}</td>
+                            <td className='table-text-neg'>Total</td>
+                            <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
+
                         </tr>
                         {order.combos && order.combos.map((p, i) => (
-                        <tr key= {i}>
-                            <td className='table-text-neg'>{p.name}</td>
-                            <td className='table-text'>{p.quantity}</td>
-                            <td className='table-text-neg'>Descuento</td>
-                            <td className='table-text'>{p.descuento}</td>
-                        </tr>
+                            <tr key={i}>
+                                <td className='table-text-neg'>{p.name}</td>
+                                <td className='table-text'>{p.quantity}</td>
+                                <td className='table-text-neg'>Descuento</td>
+                                <td className='table-text'>US$ {p.descuento} / Bs. {(p.descuento * tasa).toFixed(2)}</td>
+                            </tr>
                         ))}
-                        
-                                <tr>
-                                <td className='table-text-neg'>Total (descuento):</td>
-                                {order.descuento ? (<td className='table-text'>{(order.total - order.descuento).toFixed(2)}</td>
+
+                        <tr>
+                            <td className='table-text-neg'></td>
+                            <td className='table-text-neg'></td>
+                            <td className='table-text-neg'>Total (descuento):</td>
+                            {order.descuento ? (<td className='table-text'>US$ {(order.total - order.descuento).toFixed(2)} / Bs. {((order.total - order.descuento) * tasa).toFixed(2)}</td>
                             ) : (<td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>)}
-                            </tr>                     
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -88,9 +91,17 @@ const Comanda = () => {
                 <button onClick={() => window.print()}>Impirimir</button>
             </div>
             <div>
+            <div>
                 <Link to="/">
-                    <button className='btn-new-order' onClick={() => dispatch(deleteCart())}>Generar Nueva Orden</button>                                        
+                    <button className='btn-new-order' onClick={() => {
+                        dispatch(addOrder())
+                        dispatch(deleteCart())
+                        }}>Guardar</button>
                 </Link>
+                <Link to="/">
+                    <button className='btn-new-order' onClick={() => dispatch(deleteCart())}>Eliminar</button>
+                </Link>
+            </div>
                 <Link to="/ordenes">
                     <h1>Ordenes</h1>
                 </Link>

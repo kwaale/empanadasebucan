@@ -1,13 +1,23 @@
 
-import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART } from "../actionsConst";
+import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART, GENERATE_ORDER } from "../actionsConst";
 import { products } from "../../seeds/products";
 import { detectaCombos } from "../../utils/detectaCombos";
 
 const initialState = {
     orders: [],
     order: {
+        id: null,
+        name:"",
+        address: "",
+        order_date: "",
+        observation:"",
+        delivery:false,
+        order_status:"Pendiente",
+        reference:"",
         cart: [],
-        total: 0.00
+        payment_methods:[],
+        combos: [],
+        total: 0.00,
     }
     // order : JSON.parse(localStorage.getItem('country')) || {}
     // order : JSON.parse(localStorage.getItem('country')) || {}
@@ -25,11 +35,20 @@ const orderReducer = (state = initialState, action) => {
         case ADD_ORDER_ORDERS:
             // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
             console.log('ADD_ORDER_ORDERS', action.payload);
-            action.payload.id = newId();
+            
 
             return {
                 ...state,
-                orders: [...state.orders, detectaCombos(action.payload)],
+                orders: [...state.orders, state.order],
+            }
+        case GENERATE_ORDER:
+            // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
+            console.log('ADD_ORDER_ORDERS', action.payload);
+            action.payload.id = newId();
+            action.payload.order_date = new Date().toLocaleDateString();
+            return {
+                ...state,
+                order: detectaCombos(action.payload),
             }
         case ADD_PRODUCT_CART:
             // console.log('ADD_PRODUCT_CART', action.payload);
