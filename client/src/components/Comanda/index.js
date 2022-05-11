@@ -97,7 +97,8 @@ const Comanda = () => {
             <div>
             <div>
                 <Link to="/">
-                    <button className='btn-new-order' onClick={() => {
+                    <button className='btn-new-order' onClick={(e) => {
+                        e.preventDefault();
                         dispatch(addOrder())
                         dispatch(deleteCart())
                         }}>Guardar</button>

@@ -51,11 +51,13 @@ const orderReducer = (state = initialState, action) => {
                 order: detectaCombos({
                     ...state.order,
                     id:newId(),
+                    name:action.payload.name,
                     order_date:new Date().toLocaleDateString(),
                     observation:action.payload.observation,
                     delivery:action.payload.delivery,
                     order_status:action.payload.order_status,
                     reference:action.payload.reference,
+                    address:action.payload.address,
                     payment_methods:action.payload.payment_methods,
                     address:action.payload.address,
                 }),
