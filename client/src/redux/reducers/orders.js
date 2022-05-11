@@ -1,5 +1,13 @@
 
-import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART, GENERATE_ORDER } from "../actionsConst";
+import {
+    ADD_ORDER_ORDERS,
+    ADD_PRODUCT_CART,
+    DELETE_PRODUCT_CART,
+    DELETE_CART,
+    GENERATE_ORDER,
+    ACT_PAYMENT_METHODS
+} from "../actionsConst";
+import { payment_methods } from './../../seeds/products';
 import { detectaCombos } from "../../utils/detectaCombos";
 
 const initialState = {
@@ -17,7 +25,10 @@ const initialState = {
         payment_methods: [],
         combos: [],
         total: 0.00,
-    }
+    },
+    payment_methods: payment_methods,
+    total_cart: 0.00,
+    cart: [],
     // order : JSON.parse(localStorage.getItem('country')) || {}
     // order : JSON.parse(localStorage.getItem('country')) || {}
 }
@@ -31,8 +42,21 @@ const getId = () => {
 const newId = getId();
 
 const orderReducer = (state = initialState, action) => {
-    // console.log('orderReducer', action.payload)
+    console.log('orderReducer', action.payload)
     switch (action.type) {
+        case ACT_PAYMENT_METHODS:
+            console.log("ACT_PAYMENT_METHODS 555 ", action.payload)
+            return {
+                ...state,
+                payment_methods: state.payment_methods.map(p => {
+                    if (p.name === action.payload && p.active){
+                        p.active = false;
+                    }else if(p.name === action.payload && !p.active){
+                        p.active = true;
+                    }
+                    return p;
+                })
+            }
         case ADD_ORDER_ORDERS:
             // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
             // console.log('ADD_ORDER_ORDERS', action.payload);
@@ -117,6 +141,12 @@ const orderReducer = (state = initialState, action) => {
                 ...state,
                 order: initialState.order
             }
+
+            // case DELETE_CART:
+            //     return {
+            //         ...state,
+            //         order: initialState.order
+            //     }    
         default:
             return state;
     }

@@ -26,12 +26,12 @@
     width: 100%;
 }
 .btn-pay-added{
-    background: green;
+    background: grey;
     width: 100%;
 }
 
 .btn-pay-add{
-    
+    background: red;
     width: 100%;
 }
 

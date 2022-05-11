@@ -1,3 +1,5 @@
+// import { useParams } from "react-router-dom";
+
 export const products = [
     // Sabores Normales $1
     { id:1, name: "Mechada", price: 1.00, category: "normal", quantity:0, },
@@ -29,12 +31,26 @@ export const products = [
     { id:24, name: "Durazno", price: 1.00, category:"bebida", quantity:0},
     { id:25, name: "Malta", price: 1.00, category:"bebida", quantity:0},
 ];
+// Sin useParams, hay que usar
+export const combos = [
+    { id:1, name: "Combo S", discount: 1, quantity: 0, products: { normales: 4, bebidas: 2 } },
+    { id:2, name: "Combo M", discount: 0.5, quantity: 0, products: { normales: 3, especiales: 3, bebidas: 3} },
+    { id:3, name: "Combo L", discount: 1, quantity: 0, products: { normales: 4, especiales: 4, gourmet:2, bebidas: 2} },
+    { id:4, name: "Combo XL", discount: 2, quantity: 0, products: { normales: 4, especiales: 4, gourmet:4, bebidas: 4}  }
+]
 
-const combos = [
-    { id:1, name: "Combo S", price: 5.00, products: { normales: 4, bebidas: 2 } },
-    { id:2, name: "Combo M", price: 10.00, products: { normales: 3, especiales: 3, bebidas: 3} },
-    { id:3, name: "Combo L", price: 15.00, products: { normales: 4, especiales: 4, gourmet:2, bebidas: 2} },
-    { id:4, name: "Combo XL", price: 20.00, products: { normales: 4, especiales: 4, gourmet:4, bebidas: 4}  }
+export const payment_methods = [
+    { name:"Pago Movil", active:false, amount:0, dolar:false },
+    { name:"Efectivo USD", active:false, amount:0, dolar:true },
+    { name:"Efectivo Bs", active:false, amount:0, dolar:false },
+    { name:"Zelle", active:false, amount:0, dolar:true },
+    { name:"Banesco", active:false, amount:0, dolar:false },
+    { name:"Mercantil", active:false, amount:0, dolar:false },
+    { name:"BBVA", active:false, amount:0, dolar:false },
+    { name:"Venezuela", active:false, amount:0, dolar:false },
+    { name:"Reserve", active:false, amount:0, dolar:true },
+    { name:"Zinli", active:false, amount:0, dolar:true },
+    { name:"PayPal", active:false, amount:0, dolar:true },
 ]
 
 // Combo S	$5 descuento $1

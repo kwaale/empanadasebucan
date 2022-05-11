@@ -1,4 +1,10 @@
-import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART, GENERATE_ORDER } from "../actionsConst";
+import { 
+    ADD_ORDER_ORDERS,
+    ADD_PRODUCT_CART,
+    DELETE_PRODUCT_CART,
+    DELETE_CART,
+    GENERATE_ORDER,
+    ACT_PAYMENT_METHODS } from "../actionsConst";
 
 // export function addMovieFavorite(payload) {
 //     return { type: "ADD_MOVIE_FAVORITE", payload };
@@ -51,6 +57,14 @@ export const deleteCart = ()=>{
     // console.log("deleteCart Action ")
     return {
         type:DELETE_CART
+    }
+}
+
+export const activePaymentMethods = (name)=>{
+    console.log("activePaymentMethods ",name)
+    return {
+        type:ACT_PAYMENT_METHODS,
+        payload:name
     }
 }
 

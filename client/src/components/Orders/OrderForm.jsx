@@ -1,14 +1,17 @@
 import "./Order.css";
-import forma_pagos from '../../seeds/forma_pagos.json';
+// import {payment_methods} from "../../seeds/products";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { orderGenerator } from "../../redux/actions/orders";
+import { useDispatch, useSelector } from "react-redux";
+import { orderGenerator, activePaymentMethods } from "../../redux/actions/orders";
 
 const OrderForm = ({ cart, total }) => {
-    const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
+    const { payment_methods } = useSelector(state => state.orderReducer);
     const dispatch = useDispatch();
+    const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
     const [payment_method, setPayment_method] = useState('');
+
+    // console.log(payment_methods);
     const [form, setForm] = useState({
         name: '',
         observation: '',
@@ -34,7 +37,7 @@ const OrderForm = ({ cart, total }) => {
             [name]: value
         });
         // tasa
-        if(name === 'tasa'){
+        if (name === 'tasa') {
             if (regex.test(value)) {
                 setTasa(value);
                 localStorage.setItem('tasa', JSON.stringify(value));
@@ -51,7 +54,7 @@ const OrderForm = ({ cart, total }) => {
     const addPayMethod = (e) => {
         // controlar que solo agregue un metodo de pago
         e.preventDefault();
-        const { name, value } = e.target;
+        const { name } = e.target;
 
         if (form.payment_methods.find(pm => pm === name)) {
             return alert(`Ya agregaste metodo pago ${name}`);
@@ -100,13 +103,14 @@ const OrderForm = ({ cart, total }) => {
                     <div> Direccion
                         <input onChange={handleChange} name="address" type="text" />
                     </div> : null}
-                    Metodos de Pago
-                    {forma_pagos.map((p, i) => {
-                        return (
-                            <button className="btn-pay-add" key={i} onClick={addPayMethod} name={p}>{p}</button>
-                        )}
-                    )}<br/>
-                {/* </select><button onClick={addPayMethod}>+</button><br /> */}
+                Metodos de Pago
+                {payment_methods.map((p, i) => {
+                    return (
+                        <button className={p.active ? "btn-pay-add" : "btn-pay-added"} key={i} onClick={() => dispatch(activePaymentMethods(p.name))} name={p.name}>{p.name}</button>
+                    )
+                }
+                )}<br />
+                {/* </select><button onClick={p.activeaddPayMethod}>+</button><br /> */}
                 Metodos de Pago Agregados
                 {form.payment_methods.map((p, i) => {
                     return (
