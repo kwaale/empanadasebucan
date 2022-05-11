@@ -1,27 +1,27 @@
 
 import { ADD_ORDER_ORDERS, ADD_PRODUCT_CART, DELETE_PRODUCT_CART, DELETE_CART, GENERATE_ORDER } from "../actionsConst";
-import { products } from "../../seeds/products";
 import { detectaCombos } from "../../utils/detectaCombos";
 
 const initialState = {
     orders: [],
     order: {
         id: null,
-        name:"",
+        name: "",
         address: "Pick Up",
         order_date: "",
-        observation:"",
-        delivery:false,
-        order_status:"Pendiente",
-        reference:"",
+        observation: "",
+        delivery: false,
+        order_status: "Pendiente",
+        reference: "",
         cart: [],
-        payment_methods:[],
+        payment_methods: [],
         combos: [],
         total: 0.00,
     }
     // order : JSON.parse(localStorage.getItem('country')) || {}
     // order : JSON.parse(localStorage.getItem('country')) || {}
 }
+//Funcion generadora del ID
 const getId = () => {
     let initialId = 0;
     return () => {
@@ -29,37 +29,35 @@ const getId = () => {
     }
 }
 const newId = getId();
+
 const orderReducer = (state = initialState, action) => {
     // console.log('orderReducer', action.payload)
     switch (action.type) {
         case ADD_ORDER_ORDERS:
             // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
-            console.log('ADD_ORDER_ORDERS', action.payload);
-            
-
+            // console.log('ADD_ORDER_ORDERS', action.payload);
             return {
                 ...state,
                 orders: [...state.orders, state.order],
             }
         case GENERATE_ORDER:
             // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
-            console.log('ADD_ORDER_ORDERS', action.payload);
-           
-            console.log('state.order.total)',state.order.total);
+            // console.log('ADD_ORDER_ORDERS', action.payload);
+            // console.log('state.order.total)',state.order.total);
             return {
                 ...state,
                 order: detectaCombos({
                     ...state.order,
-                    id:newId(),
-                    name:action.payload.name,
-                    order_date:new Date().toLocaleDateString(),
-                    observation:action.payload.observation,
-                    delivery:action.payload.delivery,
-                    order_status:action.payload.order_status,
-                    reference:action.payload.reference,
-                    address:action.payload.address,
-                    payment_methods:action.payload.payment_methods,
-                    address:action.payload.address,
+                    id: newId(),
+                    name: action.payload.name,
+                    order_date: new Date().toLocaleDateString(),
+                    observation: action.payload.observation || "No",
+                    delivery: action.payload.delivery,
+                    order_status: action.payload.order_status,
+                    reference: action.payload.reference || "No",
+                    address: action.payload.address,
+                    payment_methods: action.payload.payment_methods,
+                    address: action.payload.address || "Pick Up",
                 }),
             }
         case ADD_PRODUCT_CART:
@@ -73,7 +71,7 @@ const orderReducer = (state = initialState, action) => {
                             if (p.id === action.payload.id) p.quantity++;
                             return p;
                         }),
-                    total: state.order.cart.reduce((total, p) => total + p.price * p.quantity, 0)
+                        total: state.order.cart.reduce((total, p) => total + p.price * p.quantity, 0)
                     }
                 }
             } else {
@@ -114,11 +112,10 @@ const orderReducer = (state = initialState, action) => {
                     }
                 }
             }
-
         case DELETE_CART:
             return {
                 ...state,
-                order: { cart: [] }
+                order: initialState.order
             }
         default:
             return state;
