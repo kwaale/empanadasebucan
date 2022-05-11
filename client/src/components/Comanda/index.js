@@ -3,18 +3,13 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteCart, addOrder } from '../../redux/actions/orders';
-import { useEffect } from 'react';
 
 const Comanda = () => {
-    // Extraemos la ultima orden de todas
     const { order } = useSelector(state => state.orderReducer);
     const tasa = parseFloat(JSON.parse(localStorage.getItem('tasa')));
 
     console.log("order", order);
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     console.log("useEffect");
-    // },[order]);
 
     return (
         <div>
@@ -59,18 +54,12 @@ const Comanda = () => {
                             <td className='table-text'>{order.address}</td>
                             <td className='table-text-neg'>Metodos de Pago</td>
                             <td className='table-text'>{order.payment_methods.join(' / ')}</td>
-                            {/* <td className='table-text'>{order.payment_methods.map((m, i) => {
-                                return (
-                                    <p key={i}>{m}</p>
-                                )
-                            })}</td> */}
                         </tr>
                         <tr>
                             <td className='table-text-neg'>Observacion</td>
                             <td className='table-text'>{order.reference}</td>
                             <td className='table-text-neg'>Sub-Total</td>
                             <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
-
                         </tr>
                         {order.combos && order.combos.map((p, i) => (
                             <tr key={i}>
@@ -80,7 +69,6 @@ const Comanda = () => {
                                 <td className='table-text'>US$ {p.descuento} / Bs. {(p.descuento * tasa).toFixed(2)}</td>
                             </tr>
                         ))}
-
                         <tr>
                             <td className='table-text-neg'></td>
                             <td className='table-text-neg'></td>
@@ -95,20 +83,21 @@ const Comanda = () => {
                 <button onClick={() => window.print()}>Impirimir</button>
             </div>
             <div>
-            <div>
-                <Link to="/">
-                    <button className='btn-new-order' onClick={() => {
-                        dispatch(addOrder())
-                        dispatch(deleteCart())
+                <div>
+                    <Link to="/">
+                        <button className='btn-new-order' onClick={(e) => {
+                            e.preventDefault();
+                            dispatch(addOrder())
+                            dispatch(deleteCart())
                         }}>Guardar</button>
-                </Link>
+                    </Link>
+                    <Link to="/">
+                        <button className='btn-new-order' onClick={() => dispatch(deleteCart())}>Eliminar</button>
+                    </Link>
+                </div>
                 <Link to="/">
-                    <button className='btn-new-order' onClick={() => dispatch(deleteCart())}>Eliminar</button>
+                    <h1>Modificar</h1>
                 </Link>
-            </div>
-                {/* <Link to="/ordenes">
-                    <h1>Ordenes</h1>
-                </Link> */}
             </div>
         </div>
     );

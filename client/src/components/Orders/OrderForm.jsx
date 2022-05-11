@@ -40,7 +40,7 @@ const OrderForm = ({ cart, total }) => {
                 localStorage.setItem('tasa', JSON.stringify(value));
             }
         }
-
+        // console.log("handleChange",form);
     }
     const handleClick = () => {
         // switch delivery
@@ -57,7 +57,7 @@ const OrderForm = ({ cart, total }) => {
             return alert(`Ya agregaste metodo pago ${name}`);
         }
         let aux = form.payment_methods;
-        console.log('aux', aux);
+        // console.log('aux', aux);
         aux.push(name);
         setForm({ ...form, payment_methods: aux });
     }

@@ -3,13 +3,11 @@
     justify-content: space-between;
     align-items: center;
     background: orange;
-    height: 40px;   
+    height: 40px;
+    border-bottom-width: thick;
+    width: 100%;
 }
 
 .btn-cart:hover{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background: chocolate;
-    height: 40px;   
 }
