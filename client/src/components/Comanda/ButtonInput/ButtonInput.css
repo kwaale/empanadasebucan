@@ -1,0 +1,15 @@
+.btn-true{
+    background: red;
+    width: 75%;
+}
+.btn-false{
+    background: green;
+    width: 100%;
+}
+.inputs{
+    width: 25%;
+}
+.container-btn-input-pay{
+    width: 100%;
+    display: flex;
+}

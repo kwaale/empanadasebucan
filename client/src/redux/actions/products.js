@@ -1,5 +1,5 @@
 import { GET_PRODUCTS } from "../actionsConst";
-import { products } from "../../seeds/products";
+import { products } from "../../seeds";
 // export function addMovieFavorite(payload) {
 //     return { type: "ADD_MOVIE_FAVORITE", payload };
 //   }

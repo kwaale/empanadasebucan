@@ -4,7 +4,8 @@ import {
     DELETE_PRODUCT_CART,
     DELETE_CART,
     GENERATE_ORDER,
-    ACT_PAYMENT_METHODS } from "../actionsConst";
+    ACT_PAYMENT_METHODS,
+    ACTIVE_DESACTIVE } from "../actionsConst";
 
 // export function addMovieFavorite(payload) {
 //     return { type: "ADD_MOVIE_FAVORITE", payload };
@@ -60,10 +61,10 @@ export const deleteCart = ()=>{
     }
 }
 
-export const activePaymentMethods = (name)=>{
-    console.log("activePaymentMethods ",name)
+export const activeDesactive = (name)=>{
+    console.log("activeDesactive ",name)
     return {
-        type:ACT_PAYMENT_METHODS,
+        type:ACTIVE_DESACTIVE,
         payload:name
     }
 }
