@@ -53,7 +53,11 @@ const Comanda = () => {
                             <td className='table-text-neg'>Direcion</td>
                             <td className='table-text'>{order.address}</td>
                             <td className='table-text-neg'>Metodos de Pago</td>
-                            <td className='table-text'>{order.payment_methods.join(' / ')}</td>
+                            <td className='table-text'>{order.payment_methods.map(p => {
+                                if(p.active){
+                                    return p.name
+                                }
+                                })}</td>
                         </tr>
                         <tr>
                             <td className='table-text-neg'>Observacion</td>

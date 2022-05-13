@@ -1,5 +1,5 @@
 export const detectaCombos = (order) => {
-
+    console.log('total',order.total)
     if (order.cart.length <= 1) return;
     let sumBebida = 0;
     let sumGourmet = 0;

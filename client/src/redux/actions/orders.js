@@ -4,7 +4,6 @@ import {
     DELETE_PRODUCT_CART,
     DELETE_CART,
     GENERATE_ORDER,
-    ACT_PAYMENT_METHODS,
     ACTIVE_DESACTIVE } from "../actionsConst";
 
 // export function addMovieFavorite(payload) {

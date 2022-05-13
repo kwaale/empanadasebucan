@@ -74,6 +74,7 @@ const orderReducer = (state = initialState, action) => {
                     observation: action.payload.observation || "No",
                     reference: action.payload.reference || "No",
                     order_status: state.order.order_status,
+                    total: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
                 }),
             }
         case ADD_PRODUCT_CART:
