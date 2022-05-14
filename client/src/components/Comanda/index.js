@@ -53,9 +53,9 @@ const Comanda = () => {
                             <td className='table-text-neg'>Direcion</td>
                             <td className='table-text'>{order.address}</td>
                             <td className='table-text-neg'>Metodos de Pago</td>
-                            <td className='table-text'>{order.payment_methods.map(p => {
+                            <td className='table-text'>{order.payment_methods.map((p,i) => {
                                 if(p.active){
-                                    return p.name
+                                    return <td key= {i} className='table-text-neg'>{`${p.name} ${p.amount}`}</td>
                                 }
                                 })}</td>
                         </tr>
@@ -63,7 +63,9 @@ const Comanda = () => {
                             <td className='table-text-neg'>Observacion</td>
                             <td className='table-text'>{order.reference}</td>
                             <td className='table-text-neg'>Sub-Total</td>
-                            <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
+                            <td>US$ {order.payment_methods.reduce((a,b)=>{
+                                if (a.dolar) return a.amount + b.amount
+                            }).toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
                         </tr>
                         {order.combos && order.combos.map((p, i) => (
                             <tr key={i}>

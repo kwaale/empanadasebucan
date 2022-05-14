@@ -22,7 +22,7 @@ const OrderForm = () => {
 
     const handleChange = (e) => {
         e.preventDefault();
-        // console.log("handleChange", e.target.name, e.target.value);
+        console.log("handleChange",form);
         const regex = /^[0-9]*\.?[0-9]*$/;
         const { name, value } = e.target;
         //Setea precio al delivery
@@ -76,7 +76,6 @@ const OrderForm = () => {
             ...form,
             [name]: value
         });
-        console.log("handleChange",form);
     }
     const validaForm = () => {
         // if (form.name === '') return false;

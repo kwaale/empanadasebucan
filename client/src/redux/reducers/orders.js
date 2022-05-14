@@ -18,7 +18,7 @@ const initialState = {
         address: "Pick Up",
         order_date: "",
         observation: "",
-        delivery: false,
+        delivery: {},
         order_status: "Pendiente",
         reference: "",
         cart: [],
