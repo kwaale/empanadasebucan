@@ -88,13 +88,13 @@ const Comanda = () => {
                             <td className='table-text-neg'>Direcion</td>
                             <td className='table-text'>{order.address}</td>
                             <td className='table-text-neg'>Total a Pagar</td>
-                            {order.descuento && order.delivery.active ?
+                            {order.delivery.active ?
                                 <td className='table-text'>
                                     US$ {(order.total - order.descuento + order.delivery.zona.amount).toFixed(2)}
                                 </td> :
                                 order.delivery.active ?
-                                    <td>US$ {(order.total + order.delivery.zona.amount).toFixed(2)}</td> :
-                                    <td>US$ {order.total.toFixed(2)}</td>}
+                                    <td>US$ {(order.total + order.delivery.zona.amount - - order.descuento).toFixed(2)}</td> :
+                                    <td>US$ {(order.total - order.descuento).toFixed(2)}</td>}
                         </tr>
                     </tbody>
                 </table>

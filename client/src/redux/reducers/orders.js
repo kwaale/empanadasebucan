@@ -9,6 +9,7 @@ import {
 } from "../actionsConst";
 import { payment_methods, zonas } from './../../seeds';
 import { detectaCombos } from "../../utils/detectaCombos";
+// import { pedido1 } from './../../seeds/pedidosPrueba';
 
 
 const initialState = {
@@ -31,6 +32,7 @@ const initialState = {
     payment_methods: payment_methods,
     total_cart: 0.00,
     cart: [],
+    // cart: pedido1,
     delivery: {
         active: false,
         zona: {},

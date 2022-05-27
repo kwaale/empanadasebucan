@@ -28,30 +28,30 @@ export const detectaCombos = (order) => {
     let denomiBebida = 0;
 
     let min = 0;
-    // si es combo XL 20$ decuento 2
-    if (sumNormal >= 4 && sumEspecial >= 4 && sumGourmet >= 4 && sumBebida >= 4) {
+    // si es Combo Family Box $15 decuento 1$
+    if (sumNormal >= 2 && sumEspecial >= 2 && sumGourmet >= 2 && sumBebida >= 4) {
         // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
         // Damos vueltas restando empanadas hasta que ya no pueda.
-        denomiNormal = sumNormal / 4;
-        denomiEspecial = sumEspecial / 4;
-        denomiGourmet = sumGourmet / 4;
+        denomiNormal = sumNormal / 2;
+        denomiEspecial = sumEspecial / 2;
+        denomiGourmet = sumGourmet / 2;
         denomiBebida = sumBebida / 4;
 
         min = Math.min(denomiNormal, denomiEspecial, denomiGourmet, denomiBebida);
 
         for (let i = 0; i <= min; i++) {
-            if (sumNormal >= 4 && sumEspecial >= 4 && sumGourmet >= 4 && sumBebida >= 4) {
+            if (sumNormal >= 2 && sumEspecial >= 2 && sumGourmet >= 2 && sumBebida >= 4) {
                 combo.quantity += 1;
-                combo.descuento += 2;
-                sumNormal -= 4;
-                sumEspecial -= 4;
-                sumGourmet -= 4;
+                combo.descuento += 1;
+                sumNormal -= 2;
+                sumEspecial -= 2;
+                sumGourmet -= 2;
                 sumBebida -= 4;
             }
         }
         if (combo.quantity > 0) {
             order.descuento = combo.descuento + order.descuento;
-            combo.name = "Combo XL";
+            combo.name = "Family Box";
             combos.push(combo);
         }
 
@@ -61,31 +61,27 @@ export const detectaCombos = (order) => {
             descuento: 0,
         };
     }
-    // Revisamos por si quedan combo L 20$ descuento
-    if (sumNormal >= 4 && sumEspecial >= 4 && sumGourmet >= 2 && sumBebida >= 2) {
+    // Revisamos Combo Gift Box 1 18$ descuento 2$
+    if (sumNormal >= 10 && sumBebida >= 5) {
         // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
         // Damos vueltas restando empanadas hasta que ya no pueda.
-        order.total = order.total - 2;
-        denomiNormal = sumNormal / 4;
-        denomiEspecial = sumEspecial / 4;
-        denomiGourmet = sumGourmet / 2;
-        denomiBebida = sumBebida / 2;
+        // order.total = order.total - 2;
+        denomiNormal = sumNormal / 10;
+        denomiBebida = sumBebida / 5;
 
-        min = Math.min(denomiNormal, denomiEspecial, denomiGourmet, denomiBebida);
+        min = Math.min(denomiNormal, denomiBebida);
 
         for (let i = 0; i <= min; i++) {
-            if (sumNormal >= 4 && sumEspecial >= 4 && sumGourmet >= 2 && sumBebida >= 2) {
+            if (sumNormal >= 10 && sumBebida >= 5) {
                 combo.quantity += 1;
-                combo.descuento += 1;
-                sumNormal -= 4;
-                sumEspecial -= 4;
-                sumGourmet -= 2;
-                sumBebida -= 2;
+                combo.descuento += 2;
+                sumNormal -= 10;
+                sumBebida -= 5;
             }
         }
         if (combo.quantity > 0) {
             order.descuento = combo.descuento + order.descuento;
-            combo.name = "Combo L";
+            combo.name = "Gift Box 1";
             combos.push(combo);
         }
 
@@ -95,28 +91,26 @@ export const detectaCombos = (order) => {
             descuento: 0,
         };
     }
-    // si es combo M 10$
-    if (sumNormal >= 3 && sumEspecial >= 3 && sumBebida >= 3) {
+    // si es Gift Box 3 25$ descuento 2.5$
+    if (sumNormal >= 15 && sumBebida >= 5) {
         // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
         // Damos vueltas restando empanadas hasta que ya no pueda.
-        denomiNormal = sumNormal / 3;
-        denomiEspecial = sumEspecial / 3;
-        denomiBebida = sumBebida / 3;
+        denomiNormal = sumNormal / 15;
+        denomiBebida = sumBebida / 5;
 
-        min = Math.min(denomiNormal, denomiEspecial, denomiBebida);
+        min = Math.min(denomiNormal, denomiBebida);
 
         for (let i = 0; i <= min; i++) {
-            if (sumNormal >= 3 && sumEspecial >= 3 && sumBebida >= 3) {
+            if (sumNormal >= 15 && sumBebida >= 5) {
                 combo.quantity += 1;
-                combo.descuento += 0.5;
-                sumNormal -= 3;
-                sumEspecial -= 3;
-                sumBebida -= 3;
+                combo.descuento += 2.5;
+                sumNormal -= 15;
+                sumBebida -= 5;
             }
         }
         if (combo.quantity > 0) {
             order.descuento = combo.descuento + order.descuento;
-            combo.name = "Combo M";
+            combo.name = "Gift Box 3";
             combos.push(combo);
         }
         combo = {
@@ -126,33 +120,33 @@ export const detectaCombos = (order) => {
         };
     }
     // si es combo S 5$
-    if (sumNormal >= 4 && sumBebida >= 2) {
-        // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
-        // Damos vueltas restando empanadas hasta que ya no pueda.
-        denomiNormal = sumNormal / 4;
-        denomiBebida = sumBebida / 2;
+    // if (sumNormal >= 4 && sumBebida >= 2) {
+    //     // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
+    //     // Damos vueltas restando empanadas hasta que ya no pueda.
+    //     denomiNormal = sumNormal / 4;
+    //     denomiBebida = sumBebida / 2;
 
-        min = Math.min(denomiNormal, denomiBebida);
+    //     min = Math.min(denomiNormal, denomiBebida);
 
-        for (let i = 0; i <= min; i++) {
-            if (sumNormal >= 4 && sumBebida >= 2) {
-                combo.descuento += 1;
-                combo.quantity += 1;
-                sumNormal -= 4;
-                sumBebida -= 2;
-            }
-        }
-        if (combo.quantity > 0) {
-            order.descuento = combo.descuento + order.descuento;
-            combo.name = "Combo S";
-            combos.push(combo);
-        }
-        combo = {
-            name: "",
-            quantity: 0,
-            descuento: 0,
-        };
-    }
+    //     for (let i = 0; i <= min; i++) {
+    //         if (sumNormal >= 4 && sumBebida >= 2) {
+    //             combo.descuento += 1;
+    //             combo.quantity += 1;
+    //             sumNormal -= 4;
+    //             sumBebida -= 2;
+    //         }
+    //     }
+    //     if (combo.quantity > 0) {
+    //         order.descuento = combo.descuento + order.descuento;
+    //         combo.name = "Combo S";
+    //         combos.push(combo);
+    //     }
+    //     combo = {
+    //         name: "",
+    //         quantity: 0,
+    //         descuento: 0,
+    //     };
+    // }
     order.combos = combos;
     console.log('Order detectaCombos fin', order)
 

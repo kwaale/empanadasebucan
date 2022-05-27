@@ -1,21 +1,21 @@
 // import { useParams } from "react-router-dom";
 
 export const products = [
-    // Sabores Normales $1
+    // Sabores Normales $1.50
     { id:1, name: "Mechada", price: 1.50, category: "normal", quantity:0, },
     { id:2, name: "Queso", price: 1.50, category: "normal", quantity:0, },
     { id:3, name: "Pollo", price: 1.50, category: "normal", quantity:0, },
     { id:4, name: "Molida", price: 1.50, category: "normal", quantity:0, },
     { id:5, name: "Cazón", price: 1.50, category: "normal", quantity:0, },
     { id:6, name: "Vegana", price: 1.50, category: "normal", quantity:0, },
-    // Sabores Especiales $1,5
+    // Sabores Especiales $2
     { id:7, name: "Mechada / Queso", price: 2.00, category:"especial", quantity:0},
     { id:8, name: "Pollo / Queso", price: 2.00, category:"especial", quantity:0},
     { id:9, name: "Tajada / Queso", price: 2.00, category:"especial", quantity:0},
     { id:10, name: "Jamón / Queso", price: 2.00, category:"especial", quantity:0},
     { id:11, name: "Asado", price: 2.00, category:"especial", quantity:0},
     { id:12, name: "Dominó", price: 2.00, category:"especial", quantity:0},
-    // Sabores Gourmet $2
+    // Sabores Gourmet $2,50
     { id:13, name: "CB Pollo", price: 2.50, category:"gourmet", quantity:0},
     { id:14, name: "CB Carne", price: 2.50, category:"gourmet", quantity:0},
     { id:15, name: "Pabellón", price: 2.50, category:"gourmet", quantity:0},
@@ -82,20 +82,28 @@ export const zonas = [
 // 4	Jugos
 
 
-// Combo Family Box	$15 descuento $x
+// Combo Family Box	$15 descuento $1
 // 2	Nomales
 // 2	Especiales
 // 2	Gourmet
 // 4	Jugos
 
-// Combo Gift Box 1	$18 descuento $x
+// Combo Gift Box 1	$18 descuento $2
 // 10	Normales
+// 5	Jugos
+
+// Combo Gift Box 3	$25 descuento $2.5
+// 15	Normales
 // 5	Jugos
 
 // Combo Gift Box 2 $18 descuento $x
 // 20	Minis
 // 5	Jugos
 
-// Combo Gift Box 3	$25 descuento $x
-// 15	Normales
-// 5	Jugos
+// Queso	        4	1.50	6.00
+// Jamón / Queso	4	2.00	8.00
+// Asado / Queso	4	2.50	10.00
+// Mango	        13	1.00	13.00
+// Pollo	        11	1.50	16.50
+// Molida	        15	1.50	22.50
+// Fresa	        5	1.00	5.00
