@@ -30,7 +30,7 @@ export const addOrder = (order)=>{
 }
 
 export const orderGenerator = (order)=>{
-    console.log('orderGenerator', order)
+    // console.log('orderGenerator', order)
     return {
         type:GENERATE_ORDER,
         payload:order
@@ -61,7 +61,7 @@ export const deleteCart = ()=>{
 }
 
 export const activeDesactive = (name)=>{
-    console.log("activeDesactive ",name)
+    // console.log("activeDesactive ",name)
     return {
         type:ACTIVE_DESACTIVE,
         payload:name

@@ -1,5 +1,5 @@
 import "./ButtonInput.css";
-import { activeDesactive } from "../../../redux/actions/orders";
+import { activeDesactive } from "../../redux/actions/orders";
 import { useDispatch } from "react-redux";
 
 const ButtonInput = ({handleChange, element}) => {

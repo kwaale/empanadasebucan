@@ -2,27 +2,27 @@
 
 export const products = [
     // Sabores Normales $1
-    { id:1, name: "Mechada", price: 1.00, category: "normal", quantity:0, },
-    { id:2, name: "Queso", price: 1.00, category: "normal", quantity:0, },
-    { id:3, name: "Pollo", price: 1.00, category: "normal", quantity:0, },
-    { id:4, name: "Molida", price: 1.00, category: "normal", quantity:0, },
-    { id:5, name: "Cazón", price: 1.00, category: "normal", quantity:0, },
-    { id:6, name: "Vegana", price: 1.00, category: "normal", quantity:0, },
+    { id:1, name: "Mechada", price: 1.50, category: "normal", quantity:0, },
+    { id:2, name: "Queso", price: 1.50, category: "normal", quantity:0, },
+    { id:3, name: "Pollo", price: 1.50, category: "normal", quantity:0, },
+    { id:4, name: "Molida", price: 1.50, category: "normal", quantity:0, },
+    { id:5, name: "Cazón", price: 1.50, category: "normal", quantity:0, },
+    { id:6, name: "Vegana", price: 1.50, category: "normal", quantity:0, },
     // Sabores Especiales $1,5
-    { id:7, name: "Mechada / Queso", price: 1.50, category:"especial", quantity:0},
-    { id:8, name: "Pollo / Queso", price: 1.50, category:"especial", quantity:0},
-    { id:9, name: "Tajada / Queso", price: 1.50, category:"especial", quantity:0},
-    { id:10, name: "Jamón / Queso", price: 1.50, category:"especial", quantity:0},
-    { id:11, name: "Asado", price: 1.50, category:"especial", quantity:0},
-    { id:12, name: "Dominó", price: 1.50, category:"especial", quantity:0},
+    { id:7, name: "Mechada / Queso", price: 2.00, category:"especial", quantity:0},
+    { id:8, name: "Pollo / Queso", price: 2.00, category:"especial", quantity:0},
+    { id:9, name: "Tajada / Queso", price: 2.00, category:"especial", quantity:0},
+    { id:10, name: "Jamón / Queso", price: 2.00, category:"especial", quantity:0},
+    { id:11, name: "Asado", price: 2.00, category:"especial", quantity:0},
+    { id:12, name: "Dominó", price: 2.00, category:"especial", quantity:0},
     // Sabores Gourmet $2
-    { id:13, name: "CB Pollo", price: 2.00, category:"gourmet", quantity:0},
-    { id:14, name: "CB Carne", price: 2.00, category:"gourmet", quantity:0},
-    { id:15, name: "Pabellón", price: 2.00, category:"gourmet", quantity:0},
-    { id:16, name: "Pabellón Margariteño", price: 2.00, category:"gourmet", quantity:0},
-    { id:17, name: "Camarón", price: 2.00, category:"gourmet", quantity:0},
-    { id:18, name: "Asado / Queso", price: 2.00, category:"gourmet", quantity:0},
-    { id:19, name: "Chuleta / Queso", price: 2.00, category:"gourmet", quantity:0},
+    { id:13, name: "CB Pollo", price: 2.50, category:"gourmet", quantity:0},
+    { id:14, name: "CB Carne", price: 2.50, category:"gourmet", quantity:0},
+    { id:15, name: "Pabellón", price: 2.50, category:"gourmet", quantity:0},
+    { id:16, name: "Pabellón Margariteño", price: 2.50, category:"gourmet", quantity:0},
+    { id:17, name: "Camarón", price: 2.50, category:"gourmet", quantity:0},
+    { id:18, name: "Asado / Queso", price: 2.50, category:"gourmet", quantity:0},
+    { id:19, name: "Chuleta / Queso", price: 2.50, category:"gourmet", quantity:0},
     // Bebidas $1
     { id:20, name: "Mango", price: 1.00, category:"bebida", quantity:0},
     { id:21, name: "Parchita", price: 1.00, category:"bebida", quantity:0},
@@ -53,6 +53,13 @@ export const payment_methods = [
     { name:"PayPal", active:false, amount:0, dolar:true },
 ]
 
+export const zonas = [
+    { name: "Zona 1", active: false, amount: 1.00, dolar: true },
+    { name: "Zona 2", active: false, amount: 1.50, dolar: true },
+    { name: "Zona 3", active: false, amount: 2.00, dolar: true },
+    { name: "Zona 4", active: false, amount: 3.00, dolar: true }
+];
+
 // Combo S	$5 descuento $1
 // 4	Normales
 // 2	Jugos
@@ -73,3 +80,22 @@ export const payment_methods = [
 // 4	Especiales
 // 4	Gourmet
 // 4	Jugos
+
+
+// Combo Family Box	$15 descuento $x
+// 2	Nomales
+// 2	Especiales
+// 2	Gourmet
+// 4	Jugos
+
+// Combo Gift Box 1	$18 descuento $x
+// 10	Normales
+// 5	Jugos
+
+// Combo Gift Box 2 $18 descuento $x
+// 20	Minis
+// 5	Jugos
+
+// Combo Gift Box 3	$25 descuento $x
+// 15	Normales
+// 5	Jugos

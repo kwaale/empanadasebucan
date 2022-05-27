@@ -6,9 +6,9 @@ import { deleteCart, addOrder } from '../../redux/actions/orders';
 
 const Comanda = () => {
     const { order } = useSelector(state => state.orderReducer);
-    const tasa = parseFloat(JSON.parse(localStorage.getItem('tasa')));
+    // const tasa = parseFloat(JSON.parse(localStorage.getItem('tasa')));
 
-    console.log("order", order);
+    console.log("Comanda order", order);
     const dispatch = useDispatch();
 
     return (
@@ -39,48 +39,62 @@ const Comanda = () => {
                             <tr key={product.id}>
                                 <td className='table-text'>{product.name}</td>
                                 <td>{product.quantity}</td>
-                                <td>{product.price}</td>
-                                <td>{product.quantity * product.price}</td>
+                                <td>{product.price.toFixed(2)}</td>
+                                <td>{(product.quantity * product.price).toFixed(2)}</td>
                             </tr>
                         ))}
                         <tr>
                             <td className='table-text-neg' >Cliente</td>
                             <td className='table-text'>{order.name}</td>
-                            <td className='table-text-neg'>Referencia</td>
-                            <td className='table-text'>{order.reference}</td>
-                        </tr>
-                        <tr>
-                            <td className='table-text-neg'>Direcion</td>
-                            <td className='table-text'>{order.address}</td>
-                            <td className='table-text-neg'>Metodos de Pago</td>
-                            <td className='table-text'>{order.payment_methods.map((p,i) => {
-                                if(p.active){
-                                    return <td key= {i} className='table-text-neg'>{`${p.name} ${p.amount}`}</td>
-                                }
-                                })}</td>
+                            <td className='table-text-neg'>Pedido</td>
+                            <td className='table-text'>US$ {order.total.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td className='table-text-neg'>Observacion</td>
+                            <td className='table-text'>{order.observation}</td>
+                            <td className='table-text-neg'>Medios de Pago</td>
+                            <td className='table-text'>{order.payment_methods.map((p, i) => {
+                                if (p.active) {
+                                    return <td key={i} className='table-text'>{`${p.name} ${p.amount}`}</td>
+                                }
+                            })}</td>
+                        </tr>
+                        {/* <tr>
+                            <td className='table-text-neg'>Libre 1</td>
                             <td className='table-text'>{order.reference}</td>
-                            <td className='table-text-neg'>Sub-Total</td>
-                            <td>US$ {order.payment_methods.reduce((a,b)=>{
-                                if (a.dolar) return a.amount + b.amount
-                            }).toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
+                            <td className='table-text-neg'>Sub-Total*</td> 
+                            <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
+                        </tr> */}
+                        <tr>
+                            <td className='table-text-neg'>Referencia</td>
+                            <td className='table-text'>{order.reference}</td>
+                            {console.log("order.delivery.active",order.delivery.active)}
+                            {order.delivery.active ?
+                                <>
+                                    <td className='table-text-neg'>Delivery</td>
+                                    <td>US$ {order.delivery.zona.amount.toFixed(2)}</td>
+                                </>
+                                : null}
                         </tr>
                         {order.combos && order.combos.map((p, i) => (
                             <tr key={i}>
                                 <td className='table-text-neg'>{p.name}</td>
                                 <td className='table-text'>{p.quantity}</td>
                                 <td className='table-text-neg'>Descuento</td>
-                                <td className='table-text'>US$ {p.descuento} / Bs. {(p.descuento * tasa).toFixed(2)}</td>
+                                <td className='table-text'>US$ {p.descuento.toFixed(2)}</td>
                             </tr>
                         ))}
                         <tr>
-                            <td className='table-text-neg'></td>
-                            <td className='table-text-neg'></td>
-                            <td className='table-text-neg'>Total (descuento)</td>
-                            {order.descuento ? (<td className='table-text'>US$ {(order.total - order.descuento).toFixed(2)} / Bs. {((order.total - order.descuento) * tasa).toFixed(2)}</td>
-                            ) : (<td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>)}
+                            <td className='table-text-neg'>Direcion</td>
+                            <td className='table-text'>{order.address}</td>
+                            <td className='table-text-neg'>Total a Pagar</td>
+                            {order.descuento && order.delivery.active ?
+                                <td className='table-text'>
+                                    US$ {(order.total - order.descuento + order.delivery.zona.amount).toFixed(2)}
+                                </td> :
+                                order.delivery.active ?
+                                    <td>US$ {(order.total + order.delivery.zona.amount).toFixed(2)}</td> :
+                                    <td>US$ {order.total.toFixed(2)}</td>}
                         </tr>
                     </tbody>
                 </table>
@@ -92,7 +106,7 @@ const Comanda = () => {
                 <div>
                     <Link to="/">
                         <button className='btn-new-order' onClick={(e) => {
-                            e.preventDefault();
+                            // e.preventDefault();
                             dispatch(addOrder())
                             dispatch(deleteCart())
                         }}>Guardar</button>

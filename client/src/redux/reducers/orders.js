@@ -7,8 +7,9 @@ import {
     GENERATE_ORDER,
     ACTIVE_DESACTIVE
 } from "../actionsConst";
-import { payment_methods } from './../../seeds';
+import { payment_methods, zonas } from './../../seeds';
 import { detectaCombos } from "../../utils/detectaCombos";
+
 
 const initialState = {
     orders: [],
@@ -24,17 +25,18 @@ const initialState = {
         cart: [],
         payment_methods: [],
         combos: [],
+        descuento: 0,
         total: 0.00,
     },
     payment_methods: payment_methods,
     total_cart: 0.00,
     cart: [],
-    delivery:{
-        name: "delivery",
-        price: 0.00,
+    delivery: {
         active: false,
-        address:""
-    }
+        zona: {},
+        address: "",
+    },
+    zonas_delivery: zonas
     // order : JSON.parse(localStorage.getItem('country')) || {}
     // order : JSON.parse(localStorage.getItem('country')) || {}
 }
@@ -48,7 +50,7 @@ const getId = () => {
 const newId = getId();
 
 const orderReducer = (state = initialState, action) => {
-    console.log('orderReducer', action.payload)
+    // console.log('orderReducer', action.payload);
     switch (action.type) {
         case ADD_ORDER_ORDERS:
             // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
@@ -61,91 +63,162 @@ const orderReducer = (state = initialState, action) => {
             // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
             // console.log('ADD_ORDER_ORDERS', action.payload);
             // console.log('state.order.total)',state.order.total);
-            return {
-                ...state,
-                order: detectaCombos({
-                    ...state.order,
-                    id: newId(),
-                    order_date: new Date().toLocaleDateString(),
-                    name: action.payload.name,
-                    delivery: state.delivery.active ? {...state.delivery, address: action.payload.address} : false,
-                    payment_methods: state.payment_methods,
-                    address: action.payload.address,
-                    observation: action.payload.observation || "No",
-                    reference: action.payload.reference || "No",
-                    order_status: state.order.order_status,
-                    total: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
-                }),
+            // Banesco: "2.5"
+            // delivery: {price: 0, address: ''}
+            // name: "dfsdf"
+            // observation: "sdfa"
+            // payment_methods: (11) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+            // reference: "asfdsf"
+            // console.log("action payload", action.payload);
+            // si no tiene delivery
+            console.log("action.payload.address !== undefined",action.payload.address !== "");
+            console.log("action.payload.address !== undefined",action.payload.address);
+            // Si hay direccion
+            if(action.payload.address !== ""){
+                console.log("IF action.payload", action.payload);
+                return {
+                    ...state,
+                    order: detectaCombos({
+                        ...state.order,
+                        id: newId(),
+                        order_date: new Date().toLocaleDateString(),
+                        name: action.payload.name,
+                        delivery: {
+                            ...state.delivery,
+                            zona : state.zonas_delivery.find(zona => zona.active),
+                            address: action.payload.address,
+                            active:true
+                        },
+                        payment_methods: state.payment_methods.filter(payment_method => payment_method.active),
+                        address: action.payload.address,
+                        observation: action.payload.observation || null,
+                        reference: action.payload.reference || null,
+                        cart: state.cart,
+                        // order_status: state.order.order_status,
+                        total: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
+                    }),
+                }
+            }else{
+                console.log("Else action.payload", action.payload);
+                return {
+                    ...state,
+                    order: detectaCombos({
+                        ...state.order,
+                        id: newId(),
+                        order_date: new Date().toLocaleDateString(),
+                        name: action.payload.name,
+                        payment_methods: state.payment_methods.filter(payment_method => payment_method.active),
+                        observation: action.payload.observation || null,
+                        reference: action.payload.reference || null,
+                        cart: state.cart,
+                        delivery: state.delivery,
+                        // order_status: state.order.order_status,
+                        total: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
+                    }),
+                }
             }
         case ADD_PRODUCT_CART:
             // console.log('ADD_PRODUCT_CART', action.payload);
-            if (state.order.cart.find(p => p.id === action.payload.id)) {
+            if (state.cart.find(p => p.id === action.payload.id)) {
                 // console.log("IF action.payload", action.payload)
                 return {
                     ...state,
-                    order: {
-                        cart: state.order.cart.map(p => {
-                            if (p.id === action.payload.id) p.quantity++;
-                            return p;
-                        }),
-                        total: state.order.cart.reduce((total, p) => total + p.price * p.quantity, 0)
-                    }
+                    cart: state.cart.map(p => {
+                        if (p.id === action.payload.id) p.quantity++;
+                        return p;
+                    }),
+                    total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
                 }
             } else {
                 // console.log("ELSE action.payload", action.payload)
                 action.payload.quantity = 1;
                 return {
                     ...state,
-                    order: {
-                        cart: [...state.order.cart, action.payload],
-                        total: state.order.cart.reduce((total, p) => total + p.price * p.quantity, 0) + action.payload.price
-                    }
+                    cart: [...state.cart, action.payload],
+                    total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0) + action.payload.price
                 };
             };
         case DELETE_PRODUCT_CART:
             // console.log("DELETE_PRODUCT_CART", action.payload)
-            const { price, quantity } = state.order.cart.find(p => p.id === action.payload)
+            const { price, quantity } = state.cart.find(p => p.id === action.payload)
             // console.log("price, quantity", price, quantity);
             if (price && quantity === 1) {
                 // console.log("IF price && quantity === 1", price, quantity);
                 return {
                     ...state,
-                    order: {
-                        cart: state.order.cart.filter(p => p.id !== action.payload),
-                        total: state.order.cart.reduce((total, p) => total + p.price * p.quantity, 0) - price
-                    }
+
+                        cart: state.cart.filter(p => p.id !== action.payload),
+                        total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0) - price
                 }
             } else {
                 return {
                     ...state,
-                    order: {
-                        cart: state.order.cart.map(p => {
+                        cart: state.cart.map(p => {
                             if (p.id === action.payload) {
                                 p.quantity -= 1;
                             }
                             return p;
                         }),
-                        total: state.order.cart.reduce((total, p) => total + p.price * p.quantity, 0)
-                    }
+                        total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
                 }
             }
         case DELETE_CART:
+            console.log("DELETE_CART", zonas)
             return {
                 ...state,
-                order: initialState.order
+                order: {
+                    id: null,
+                    name: "",
+                    address: "Pick Up",
+                    order_date: "",
+                    observation: "",
+                    delivery: initialState.delivery,
+                    order_status: "Pendiente",
+                    reference: "",
+                    cart: [],
+                    payment_methods: [],
+                    combos: [],
+                    descuento: 0,
+                    total: 0.00,
+                },
+                payment_methods: payment_methods.map(p => {
+                    return {
+                        ...p,
+                        active: false
+                    }
+                }),
+                total_cart: 0.00,
+                cart: [],
+                delivery: initialState.delivery,
+                zonas_delivery: zonas.map(p => {
+                    return {
+                        ...p,
+                        active: false
+                    }
+                })
             }
 
             case ACTIVE_DESACTIVE:
-                console.log("reducer", action.payload)
-                if(action.payload === "delivery"){
+                // console.log("reducer", action.payload)
+                // activa los delivery
+                if(
+                    action.payload === "Zona 1" ||
+                    action.payload === "Zona 2" ||
+                    action.payload === "Zona 3" ||
+                    action.payload === "Zona 4"
+                ) {
+                    console.log("active zone", action.payload);
                     return {
                         ...state,
-                        delivery: {
-                            ...state.delivery,
-                            active: state.delivery.active ? false : true
-                        }
+                        zonas_delivery: state.zonas_delivery.map(p=>{
+                            if(p.name === action.payload) {
+                                p.active ? p.active = false : p.active = true;
+                            }
+                            return p
+                        })
                     }
                 }else{
+                    // activa metodos de pago
                     return {
                         ...state,
                         payment_methods: state.payment_methods.map(p => {
