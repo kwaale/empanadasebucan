@@ -57,7 +57,7 @@ const Comanda = () => {
                                 if (p.active) {
                                     return <td key={i} className='table-text'>{`${p.name} ${p.amount}`}</td>
                                 }
-                            })}</td>
+                                return null })}</td>
                         </tr>
                         {/* <tr>
                             <td className='table-text-neg'>Libre 1</td>
@@ -68,7 +68,6 @@ const Comanda = () => {
                         <tr>
                             <td className='table-text-neg'>Referencia</td>
                             <td className='table-text'>{order.reference}</td>
-                            {console.log("order.delivery.active",order.delivery.active)}
                             {order.delivery.active ?
                                 <>
                                     <td className='table-text-neg'>Delivery</td>

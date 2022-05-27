@@ -3,12 +3,12 @@ import OrderForm from "../Orders/OrderForm";
 import "./products.css";
 import { useEffect } from "react";
 import { getProducts } from "../../redux/actions/products";
-import { orderGenerator } from "../../redux/actions/orders";
+// import { orderGenerator } from "../../redux/actions/orders";
 import { useSelector, useDispatch } from "react-redux";
-import CartProducts from "../CartProducts";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import Total from "../CartProducts/Total";
+// import CartProducts from "../CartProducts";
+// import { useState } from "react";
+// import { Link } from "react-router-dom";
+// import Total from "../CartProducts/Total";
 
 
 

@@ -165,7 +165,7 @@ const orderReducer = (state = initialState, action) => {
                 }
             }
         case DELETE_CART:
-            console.log("DELETE_CART", zonas)
+            // console.log("DELETE_CART", zonas)
             return {
                 ...state,
                 order: {
@@ -209,7 +209,7 @@ const orderReducer = (state = initialState, action) => {
                     action.payload === "Zona 3" ||
                     action.payload === "Zona 4"
                 ) {
-                    console.log("active zone", action.payload);
+                    // console.log("active zone", action.payload);
                     return {
                         ...state,
                         zonas_delivery: state.zonas_delivery.map(p=>{

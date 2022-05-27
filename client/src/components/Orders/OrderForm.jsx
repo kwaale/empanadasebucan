@@ -6,17 +6,17 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { orderGenerator } from "../../redux/actions/orders";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 
 const OrderForm = () => {
     const { payment_methods, cart, zonas_delivery, total_cart } = useSelector(state => state.orderReducer);
-   const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
+    const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
 
     const dispatch = useDispatch();
     // console.log("zonas_delivery",zonas_delivery);
 
-    
+
     // useEffect(() => {
     //     console.log("UseEffect cart", cart);
     // }, [])
@@ -25,12 +25,12 @@ const OrderForm = () => {
         observation: '',
         reference: '',
         payment_methods,
-        address:''
+        address: ''
     });
-     
-     const handleChange = (e) => {
+
+    const handleChange = (e) => {
         e.preventDefault();
-        console.log("handleChange",form);
+        // console.log("handleChange",form);
         const regex = /^[0-9]*\.?[0-9]*$/;
         const { name, value } = e.target;
         //Setea Direccion
@@ -39,30 +39,30 @@ const OrderForm = () => {
             address: value
         });
         //Agregamos datos al array de payment_methods
-         switch (name) {
-             case "Pago Movil":
-             case "Efectivo USD":
-             case "Efectivo Bs":
-             case "Zelle":
-             case "Banesco":
-             case "Mercantil":
-             case "BBVA":
-             case "Venezuela":
-             case "Reserve":
-             case "Zinli":
-             case "PayPal":
-                 console.log("name", name);
-                 return setForm({
-                     ...form,
-                     payment_methods: payment_methods.map(payment => {
-                         if (payment.name === name) {
-                             payment.amount = value;
-                             payment.active = true;
-                             return payment;
-                         } else return payment;
-                     })
-                 });
-         }
+        if (
+            name === "Pago Movil" ||
+            name === "Efectivo USD" ||
+            name === "Efectivo Bs" ||
+            name === "Zelle" ||
+            name === "Banesco" ||
+            name === "Mercantil" ||
+            name === "BBVA" ||
+            name === "Venezuela" ||
+            name === "Reserve" ||
+            name === "Zinli" ||
+            name === "PayPal"
+        ) {
+            return setForm({
+                ...form,
+                payment_methods: payment_methods.map(payment => {
+                    if (payment.name === name) {
+                        payment.amount = value;
+                        payment.active = true;
+                        return payment;
+                    } else return payment;
+                })
+            });
+        }
         //Setea la tasa
         if (name === 'tasa') {
             if (regex.test(value)) {
@@ -73,40 +73,38 @@ const OrderForm = () => {
         }
         //Precio del Delivery
         if (name === 'delivery') {
-            console.log("regex.test(value)",regex.test(value));
-           if (regex.test(value)) {
-                 return setForm({
+            // console.log("regex.test(value)", regex.test(value));
+            if (regex.test(value)) {
+                return setForm({
                     ...form,
                     delivery: {
-                          ...form.delivery,
-                          price: value
+                        ...form.delivery,
+                        price: value
                     }
-                 });
-              }
-              return
-           }
+                });
+            }
+            return
+        }
         //Setea el resto del form
         setForm({
             ...form,
             [name]: value
         });
     }
-  
-     const validaForm = () => {
+
+    const validaForm = () => {
         // console.log("cart.lenght ñññ", !cart);
         if (form.name === '') return false;
-        if(cart.length === 0 || cart.length === undefined) return false;
-        // if (form.delivery && form.address === '') return false;
-        // if (form.payment_methods.length === 0) return false;
+        if (cart.length === 0 || cart.length === undefined) return false;
+        if (form.delivery && form.address === '') return false;
+        if (!form.payment_methods.find(p => p.active)) return false;
         return true;
-     }
-  
-    
+    }
 
     return (
         <div className="container-form">
             <div>
-                <CartProducts cart={cart} total_cart={total_cart} tasa={tasa} zonas_delivery={zonas_delivery}/>
+                <CartProducts cart={cart} total_cart={total_cart} tasa={tasa} zonas_delivery={zonas_delivery} />
                 <div className="tasa">
                     Tasa Bs./US$
                     <input className="input-tasa"
@@ -117,26 +115,26 @@ const OrderForm = () => {
                     />
                 </div>
                 Delivery
-                <ButtonZonas zonas_delivery={zonas_delivery}/>
+                <ButtonZonas zonas_delivery={zonas_delivery} />
                 Cliente
                 <input onChange={handleChange} name="name" type="text" />
                 Observacion
                 <input onChange={handleChange} name="observation" type="text" />
                 Referencia
                 <input onChange={handleChange} name="reference" type="text" />
-                {zonas_delivery.find(d=> d.active) ? 
-                <div> Direccion
-                    <input onChange={handleChange} name="address" type="text" value={form.address}/>
-                </div> : null}
+                {zonas_delivery.find(d => d.active) ?
+                    <div> Direccion
+                        <input onChange={handleChange} name="address" type="text" value={form.address} />
+                    </div> : null}
                 {payment_methods?.map((element, index) => <ButtonInput handleChange={handleChange} element={element} key={index} />)}
             </div>
             <div>
-            {validaForm() ? <>
-               <Link to="/comanda">
-                  <button className="btn-comanda" onClick={() => dispatch(orderGenerator(form))}>Comanda</button>
-               </Link>
-            </> : null}
-         </div>
+                {validaForm() ? <>
+                    <Link to="/comanda">
+                        <button className="btn-comanda" onClick={() => dispatch(orderGenerator(form))}>Comanda</button>
+                    </Link>
+                </> : null}
+            </div>
         </div>
     )
 }
