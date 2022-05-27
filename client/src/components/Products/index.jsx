@@ -3,6 +3,7 @@ import OrderForm from "../Orders/OrderForm";
 import "./products.css";
 import { useEffect } from "react";
 import { getProducts } from "../../redux/actions/products";
+import { orderGenerator } from "../../redux/actions/orders";
 import { useSelector, useDispatch } from "react-redux";
 import CartProducts from "../CartProducts";
 import { useState } from "react";
@@ -14,12 +15,14 @@ import Total from "../CartProducts/Total";
 const Products = () => {
 
    const { products } = useSelector(state => state.productsReducer);
-   const { order } = useSelector(state => state.orderReducer);
+   // const { order, cart, total_cart } = useSelector(state => state.orderReducer);
    const dispatch = useDispatch();
-   
+   // console.log("Tasa", tasa);
    useEffect(() => {
       dispatch(getProducts());
    }, [dispatch]);
+
+   
 
    return (
       <div>
@@ -29,23 +32,9 @@ const Products = () => {
             ))}
          </div>
          <div className="content-cart-form">
-            <CartProducts />
-            <Total />
-            <OrderForm
-               cart={order.cart}
-               total={order.total}
-                />
+            <OrderForm />
          </div>
-         <div>
-            {/* descomentar */}
-            {/* {(orders.length && orders[orders.length - 1].order.cart) ?  */}
-            <div>
-               {/* <Link to="/comanda"><h1>Ultima Comanda</h1></Link>
-               <Link to="/ordenes"><h1>Ordenes</h1></Link> */}
-            </div> 
-             {/* : null} */}
-         </div>
-      </div>
+      </div >
    )
 }
 export default Products;

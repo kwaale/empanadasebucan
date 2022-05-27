@@ -1,6 +1,8 @@
 export const detectaCombos = (order) => {
-
-    if (order.cart.length <= 1) return;
+    
+    console.log('Order detectaCombos', order)
+    debugger;
+    if (order.cart.length < 1) return;
     let sumBebida = 0;
     let sumGourmet = 0;
     let sumEspecial = 0;
@@ -36,7 +38,7 @@ export const detectaCombos = (order) => {
         denomiBebida = sumBebida / 4;
 
         min = Math.min(denomiNormal, denomiEspecial, denomiGourmet, denomiBebida);
-        
+
         for (let i = 0; i <= min; i++) {
             if (sumNormal >= 4 && sumEspecial >= 4 && sumGourmet >= 4 && sumBebida >= 4) {
                 combo.quantity += 1;
@@ -47,13 +49,17 @@ export const detectaCombos = (order) => {
                 sumBebida -= 4;
             }
         }
-        if (combo.quantity > 0){
-            order.descuento = combo.descuento;
+        if (combo.quantity > 0) {
+            order.descuento = combo.descuento + order.descuento;
             combo.name = "Combo XL";
             combos.push(combo);
         }
 
-        combo = {};
+        combo = {
+            name: "",
+            quantity: 0,
+            descuento: 0,
+        };
     }
     // Revisamos por si quedan combo L 20$ descuento
     if (sumNormal >= 4 && sumEspecial >= 4 && sumGourmet >= 2 && sumBebida >= 2) {
@@ -77,13 +83,17 @@ export const detectaCombos = (order) => {
                 sumBebida -= 2;
             }
         }
-        if (combo.quantity > 0){
-            order.descuento = combo.descuento;
+        if (combo.quantity > 0) {
+            order.descuento = combo.descuento + order.descuento;
             combo.name = "Combo L";
             combos.push(combo);
         }
 
-        combo = {};
+        combo = {
+            name: "",
+            quantity: 0,
+            descuento: 0,
+        };
     }
     // si es combo M 10$
     if (sumNormal >= 3 && sumEspecial >= 3 && sumBebida >= 3) {
@@ -104,12 +114,16 @@ export const detectaCombos = (order) => {
                 sumBebida -= 3;
             }
         }
-        if (combo.quantity > 0){
-            order.descuento = combo.descuento;
+        if (combo.quantity > 0) {
+            order.descuento = combo.descuento + order.descuento;
             combo.name = "Combo M";
             combos.push(combo);
         }
-        combo = {};
+        combo = {
+            name: "",
+            quantity: 0,
+            descuento: 0,
+        };
     }
     // si es combo S 5$
     if (sumNormal >= 4 && sumBebida >= 2) {
@@ -128,14 +142,19 @@ export const detectaCombos = (order) => {
                 sumBebida -= 2;
             }
         }
-        if (combo.quantity > 0){
-            order.descuento = combo.descuento;
+        if (combo.quantity > 0) {
+            order.descuento = combo.descuento + order.descuento;
             combo.name = "Combo S";
             combos.push(combo);
         }
-        combo = {};
+        combo = {
+            name: "",
+            quantity: 0,
+            descuento: 0,
+        };
     }
     order.combos = combos;
+    console.log('Order detectaCombos fin', order)
 
     return order;
 }

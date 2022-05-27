@@ -1,83 +1,112 @@
 import "./Order.css";
-import forma_pagos from '../../seeds/forma_pagos.json';
+import ButtonInput from "../ButtonInput";
+import ButtonZonas from "../ButtonZonas";
+import CartProducts from "../CartProducts";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { orderGenerator } from "../../redux/actions/orders";
+import { useEffect } from "react";
 
-const OrderForm = ({ cart, total }) => {
-    const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
+
+const OrderForm = () => {
+    const { payment_methods, cart, zonas_delivery, total_cart } = useSelector(state => state.orderReducer);
+   const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
+
     const dispatch = useDispatch();
-    const [payment_method, setPayment_method] = useState('');
+    // console.log("zonas_delivery",zonas_delivery);
+
+    
+    // useEffect(() => {
+    //     console.log("UseEffect cart", cart);
+    // }, [])
     const [form, setForm] = useState({
         name: '',
         observation: '',
-        delivery: false,
-        order_status: "Pendiente",
         reference: '',
-        payment_methods: [],
-        address: '',
-        // order_date: '',
-        // cart: [],
-        // total: 0.00,
+        payment_methods,
+        address:''
     });
-
-    const handleChange = (e) => {
+     
+     const handleChange = (e) => {
+        e.preventDefault();
+        console.log("handleChange",form);
         const regex = /^[0-9]*\.?[0-9]*$/;
         const { name, value } = e.target;
-
-        if (name === 'payment_method') {
-            return setPayment_method(value);
+        //Setea Direccion
+        if (name === 'address') return setForm({
+            ...form,
+            address: value
+        });
+        //Agregamos datos al array de payment_methods
+         switch (name) {
+             case "Pago Movil":
+             case "Efectivo USD":
+             case "Efectivo Bs":
+             case "Zelle":
+             case "Banesco":
+             case "Mercantil":
+             case "BBVA":
+             case "Venezuela":
+             case "Reserve":
+             case "Zinli":
+             case "PayPal":
+                 console.log("name", name);
+                 return setForm({
+                     ...form,
+                     payment_methods: payment_methods.map(payment => {
+                         if (payment.name === name) {
+                             payment.amount = value;
+                             payment.active = true;
+                             return payment;
+                         } else return payment;
+                     })
+                 });
+         }
+        //Setea la tasa
+        if (name === 'tasa') {
+            if (regex.test(value)) {
+                setTasa(value);
+                localStorage.setItem('tasa', JSON.stringify(value));
+                return
+            }
         }
+        //Precio del Delivery
+        if (name === 'delivery') {
+            console.log("regex.test(value)",regex.test(value));
+           if (regex.test(value)) {
+                 return setForm({
+                    ...form,
+                    delivery: {
+                          ...form.delivery,
+                          price: value
+                    }
+                 });
+              }
+              return
+           }
+        //Setea el resto del form
         setForm({
             ...form,
             [name]: value
         });
-        // tasa
-        if(name === 'tasa'){
-            if (regex.test(value)) {
-                setTasa(value);
-                localStorage.setItem('tasa', JSON.stringify(value));
-            }
-        }
-        // console.log("handleChange",form);
     }
-    const handleClick = () => {
-        // switch delivery
-        form.delivery ? setForm({ ...form, delivery: false }) : setForm({ ...form, delivery: true });
-        // console.log("Delivery", form.delivery)
-    }
-
-    const addPayMethod = (e) => {
-        // controlar que solo agregue un metodo de pago
-        e.preventDefault();
-        const { name, value } = e.target;
-
-        if (form.payment_methods.find(pm => pm === name)) {
-            return alert(`Ya agregaste metodo pago ${name}`);
-        }
-        let aux = form.payment_methods;
-        // console.log('aux', aux);
-        aux.push(name);
-        setForm({ ...form, payment_methods: aux });
-    }
-    const removePayMethod = (e) => {
-        e.preventDefault();
-        let aux = form.payment_methods;
-        aux.splice(e.target.name, 1);
-        setForm({ ...form, payment_methods: aux });
-    }
-
-    const validaForm = () => {
+  
+     const validaForm = () => {
+        // console.log("cart.lenght ñññ", !cart);
         if (form.name === '') return false;
-        if (form.delivery && form.address === '') return false;
-        if (form.payment_methods.length === 0) return false;
+        if(cart.length === 0 || cart.length === undefined) return false;
+        // if (form.delivery && form.address === '') return false;
+        // if (form.payment_methods.length === 0) return false;
         return true;
-    }
+     }
+  
+    
 
     return (
         <div className="container-form">
             <div>
+                <CartProducts cart={cart} total_cart={total_cart} tasa={tasa} zonas_delivery={zonas_delivery}/>
                 <div className="tasa">
                     Tasa Bs./US$
                     <input className="input-tasa"
@@ -87,41 +116,27 @@ const OrderForm = ({ cart, total }) => {
                         type="number"
                     />
                 </div>
-                {form.delivery ?
-                    <button className="btn-devliveri-true" onClick={() => handleClick()}>Delivery</button> :
-                    <button className="btn-devliveri-false" onClick={() => handleClick()}>Pick UP</button>}
+                Delivery
+                <ButtonZonas zonas_delivery={zonas_delivery}/>
                 Cliente
                 <input onChange={handleChange} name="name" type="text" />
                 Observacion
                 <input onChange={handleChange} name="observation" type="text" />
                 Referencia
                 <input onChange={handleChange} name="reference" type="text" />
-                {form.delivery ?
-                    <div> Direccion
-                        <input onChange={handleChange} name="address" type="text" />
-                    </div> : null}
-                    Metodos de Pago
-                    {forma_pagos.map((p, i) => {
-                        return (
-                            <button className="btn-pay-add" key={i} onClick={addPayMethod} name={p}>{p}</button>
-                        )}
-                    )}<br/>
-                {/* </select><button onClick={addPayMethod}>+</button><br /> */}
-                Metodos de Pago Agregados
-                {form.payment_methods.map((p, i) => {
-                    return (
-                        <button className="btn-pay-added" name={p} onClick={(e) => removePayMethod(e)} key={i}>{p}</button>
-                    )
-                }
-                )}
-                <div>
-                    {validaForm() ? <>
-                        <Link to="/comanda">
-                            <button className="btn-comanda" onClick={() => dispatch(orderGenerator(form))}>Comanda</button>
-                        </Link>
-                    </> : null}
-                </div>
+                {zonas_delivery.find(d=> d.active) ? 
+                <div> Direccion
+                    <input onChange={handleChange} name="address" type="text" value={form.address}/>
+                </div> : null}
+                {payment_methods?.map((element, index) => <ButtonInput handleChange={handleChange} element={element} key={index} />)}
             </div>
+            <div>
+            {validaForm() ? <>
+               <Link to="/comanda">
+                  <button className="btn-comanda" onClick={() => dispatch(orderGenerator(form))}>Comanda</button>
+               </Link>
+            </> : null}
+         </div>
         </div>
     )
 }

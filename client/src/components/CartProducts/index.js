@@ -1,22 +1,16 @@
-import { useSelector } from "react-redux"
 import ItemCart from "./ItemCart";
-import { useState } from "react";
 
-const CartProducts = () => {
-    const { order } = useSelector(state => state.orderReducer);
-    const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
-
+const CartProducts = ({ cart, total_cart, tasa, zonas_delivery }) => {
     return (
         <div>
-            {order.cart.map(p => (
+            {cart.map(p => (
                 <ItemCart key={p.id} product={p} />
-
             ))}
-            {order.total > 0 ?
+            {total_cart > 0 ?
                 <div>
-                    <h3>Total:</h3>
-                    <p>US$ {order.total.toFixed(2)}</p>
-                    <p>Bs. {(order.total * tasa).toFixed(2)}</p>
+                    {/* Total con delivery incluido */}
+                    <h4>Total: US$ {(total_cart + zonas_delivery?.reduce((acum, z) => z.active ? acum + z.amount : acum, 0)).toFixed(2)}
+                     / Bs. {((total_cart + zonas_delivery?.reduce((acum, z) => z.active ? acum + z.amount : acum, 0)) * tasa).toFixed(2)}</h4>
                 </div>
                 : null}
         </div>
