@@ -61,36 +61,6 @@ export const detectaCombos = (order) => {
             descuento: 0,
         };
     }
-    // Revisamos Combo Gift Box 1 18$ descuento 2$
-    if (sumNormal >= 10 && sumBebida >= 5) {
-        // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
-        // Damos vueltas restando empanadas hasta que ya no pueda.
-        // order.total = order.total - 2;
-        denomiNormal = sumNormal / 10;
-        denomiBebida = sumBebida / 5;
-
-        min = Math.min(denomiNormal, denomiBebida);
-
-        for (let i = 0; i <= min; i++) {
-            if (sumNormal >= 10 && sumBebida >= 5) {
-                combo.quantity += 1;
-                combo.descuento += 2;
-                sumNormal -= 10;
-                sumBebida -= 5;
-            }
-        }
-        if (combo.quantity > 0) {
-            order.descuento = combo.descuento + order.descuento;
-            combo.name = "Gift Box 1";
-            combos.push(combo);
-        }
-
-        combo = {
-            name: "",
-            quantity: 0,
-            descuento: 0,
-        };
-    }
     // si es Gift Box 3 25$ descuento 2.5$
     if (sumNormal >= 15 && sumBebida >= 5) {
         // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
@@ -119,36 +89,40 @@ export const detectaCombos = (order) => {
             descuento: 0,
         };
     }
-    // si es combo S 5$
-    // if (sumNormal >= 4 && sumBebida >= 2) {
-    //     // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
-    //     // Damos vueltas restando empanadas hasta que ya no pueda.
-    //     denomiNormal = sumNormal / 4;
-    //     denomiBebida = sumBebida / 2;
-
-    //     min = Math.min(denomiNormal, denomiBebida);
-
-    //     for (let i = 0; i <= min; i++) {
-    //         if (sumNormal >= 4 && sumBebida >= 2) {
-    //             combo.descuento += 1;
-    //             combo.quantity += 1;
-    //             sumNormal -= 4;
-    //             sumBebida -= 2;
-    //         }
-    //     }
-    //     if (combo.quantity > 0) {
-    //         order.descuento = combo.descuento + order.descuento;
-    //         combo.name = "Combo S";
-    //         combos.push(combo);
-    //     }
-    //     combo = {
-    //         name: "",
-    //         quantity: 0,
-    //         descuento: 0,
-    //     };
-    // }
+    // Revisamos Combo Gift Box 1 18$ descuento 2$
+    // Tiene que ser mayor a 15 empandas normales y menor a 19 empandas normales
+    if (sumNormal >= 10 && sumBebida >= 5) {
+        // si paso, tratamos de detectar cuantas vueltas da con la divicion de los elementos
+        // Damos vueltas restando empanadas hasta que ya no pueda.
+        // order.total = order.total - 2;
+        denomiNormal = sumNormal / 10;
+        denomiBebida = sumBebida / 5;
+        
+        min = Math.min(denomiNormal, denomiBebida);
+        
+        for (let i = 0; i <= min; i++) {
+            //Revisar, tienes que entrar en cuando es mas de 15 empanadas normales 
+            if (sumNormal >= 10 && sumBebida >= 5 && sumNormal > 15 || sumNormal < 19) {
+                combo.quantity += 1;
+                combo.descuento += 2;
+                sumNormal -= 10;
+                sumBebida -= 5;
+            }
+        }
+        if (combo.quantity > 0) {
+            order.descuento = combo.descuento + order.descuento;
+            combo.name = "Gift Box 1";
+            combos.push(combo);
+        }
+        
+        combo = {
+            name: "",
+            quantity: 0,
+            descuento: 0,
+        };
+    }
     order.combos = combos;
     console.log('Order detectaCombos fin', order)
-
+    
     return order;
 }

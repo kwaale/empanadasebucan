@@ -62,21 +62,8 @@ const orderReducer = (state = initialState, action) => {
                 orders: [...state.orders, state.order],
             }
         case GENERATE_ORDER:
-            // console.log('reducer case ADD_ORDER_ORDERS', action.payload)
-            // console.log('ADD_ORDER_ORDERS', action.payload);
-            // console.log('state.order.total)',state.order.total);
-            // Banesco: "2.5"
-            // delivery: {price: 0, address: ''}
-            // name: "dfsdf"
-            // observation: "sdfa"
-            // payment_methods: (11) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-            // reference: "asfdsf"
-            // console.log("action payload", action.payload);
-            // si no tiene delivery
-            console.log("action.payload.address !== undefined",action.payload.address !== "");
-            console.log("action.payload.address !== undefined",action.payload.address);
-            // Si hay direccion
-            if(action.payload.address !== ""){
+            // Si hay address, se agrega la orden asi.
+            if (action.payload.address !== "") {
                 console.log("IF action.payload", action.payload);
                 return {
                     ...state,
@@ -87,9 +74,9 @@ const orderReducer = (state = initialState, action) => {
                         name: action.payload.name,
                         delivery: {
                             ...state.delivery,
-                            zona : state.zonas_delivery.find(zona => zona.active),
+                            zona: state.zonas_delivery.find(zona => zona.active),
                             address: action.payload.address,
-                            active:true
+                            active: true
                         },
                         payment_methods: state.payment_methods.filter(payment_method => payment_method.active),
                         address: action.payload.address,
@@ -100,7 +87,8 @@ const orderReducer = (state = initialState, action) => {
                         total: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
                     }),
                 }
-            }else{
+                // Si no hay address, se agrega la orden asi.
+            } else {
                 console.log("Else action.payload", action.payload);
                 return {
                     ...state,
@@ -149,19 +137,19 @@ const orderReducer = (state = initialState, action) => {
                 return {
                     ...state,
 
-                        cart: state.cart.filter(p => p.id !== action.payload),
-                        total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0) - price
+                    cart: state.cart.filter(p => p.id !== action.payload),
+                    total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0) - price
                 }
             } else {
                 return {
                     ...state,
-                        cart: state.cart.map(p => {
-                            if (p.id === action.payload) {
-                                p.quantity -= 1;
-                            }
-                            return p;
-                        }),
-                        total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
+                    cart: state.cart.map(p => {
+                        if (p.id === action.payload) {
+                            p.quantity -= 1;
+                        }
+                        return p;
+                    }),
+                    total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
                 }
             }
         case DELETE_CART:
@@ -200,44 +188,44 @@ const orderReducer = (state = initialState, action) => {
                 })
             }
 
-            case ACTIVE_DESACTIVE:
-                // console.log("reducer", action.payload)
-                // activa los delivery
-                if(
-                    action.payload === "Zona 1" ||
-                    action.payload === "Zona 2" ||
-                    action.payload === "Zona 3" ||
-                    action.payload === "Zona 4"
-                ) {
-                    // console.log("active zone", action.payload);
-                    return {
-                        ...state,
-                        zonas_delivery: state.zonas_delivery.map(p=>{
-                            if(p.name === action.payload) {
-                                p.active ? p.active = false : p.active = true;
-                            }
-                            return p
-                        })
-                    }
-                }else{
-                    // activa metodos de pago
-                    return {
-                        ...state,
-                        payment_methods: state.payment_methods.map(p => {
-                            if (p.name === action.payload && p.active){
-                                p.active = false;
-                            }else if(p.name === action.payload && !p.active){
-                                p.active = true;
-                            }
-                            return p;
-                        })
-                    }
-            }    
-              // case ACTIVE_DELIVERY:
-            //     return {
-            //         ...state,
-            //         order: initialState.order
-            //     }    
+        case ACTIVE_DESACTIVE:
+            // console.log("reducer", action.payload)
+            // activa los delivery
+            if (
+                action.payload === "Zona 1" ||
+                action.payload === "Zona 2" ||
+                action.payload === "Zona 3" ||
+                action.payload === "Zona 4"
+            ) {
+                // console.log("active zone", action.payload);
+                return {
+                    ...state,
+                    zonas_delivery: state.zonas_delivery.map(p => {
+                        if (p.name === action.payload) {
+                            p.active ? p.active = false : p.active = true;
+                        }
+                        return p
+                    })
+                }
+            } else {
+                // activa metodos de pago
+                return {
+                    ...state,
+                    payment_methods: state.payment_methods.map(p => {
+                        if (p.name === action.payload && p.active) {
+                            p.active = false;
+                        } else if (p.name === action.payload && !p.active) {
+                            p.active = true;
+                        }
+                        return p;
+                    })
+                }
+            }
+        // case ACTIVE_DELIVERY:
+        //     return {
+        //         ...state,
+        //         order: initialState.order
+        //     }    
         default:
             return state;
     }

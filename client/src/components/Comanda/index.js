@@ -59,12 +59,6 @@ const Comanda = () => {
                                 }
                                 return null })}</td>
                         </tr>
-                        {/* <tr>
-                            <td className='table-text-neg'>Libre 1</td>
-                            <td className='table-text'>{order.reference}</td>
-                            <td className='table-text-neg'>Sub-Total*</td> 
-                            <td>US$ {order.total.toFixed(2)} / Bs. {(order.total * tasa).toFixed(2)}</td>
-                        </tr> */}
                         <tr>
                             <td className='table-text-neg'>Referencia</td>
                             <td className='table-text'>{order.reference}</td>
