@@ -48,6 +48,34 @@
     background-color: #00a8ff;
 }
 
+.btn-mini{
+    color: black;
+    padding: -19px;
+    width: 150px;
+    height: 120px;
+    background-color: chartreuse;
+    margin: 7px;
+}
+
+.btn-mini:hover{
+    color: chartreuse;
+    background: black;
+}
+
+.combo{
+    display: flex;
+    flex-flow: column;
+    width: 150px;
+    height: 120px;
+    background-color: blue;
+    margin: 7px;
+}
+.btn-combo-mas{
+    color: black;
+    width: 50%;
+    height: 100%;
+    background-color: turquoise;
+}
 
 .products {
     display: inline-flex;
@@ -80,4 +108,41 @@
     margin-bottom: 15px;
     width: min-content;
     text-align: left;
+}
+
+/* Button principal */
+.card-product{
+    color: white;
+    width: 150px;
+    height: 120px;
+    margin: 7px
+}
+
+.container-btns-mas-menos{
+    display: inline-flex;
+    width: 100%;
+    height: 50%;
+}
+
+.container-btn-mas-menos{
+    width: 100%;
+    height: 100%;
+    background: red;
+}
+.btn-mas-menos{
+    width: 100%;
+    height: 100%;
+    font-size: 20px;    
+}
+
+.container-combos{
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+
+.card-products{
+    display: flex;
+    flex-flow: column;
+    margin-top: 40px;
 }

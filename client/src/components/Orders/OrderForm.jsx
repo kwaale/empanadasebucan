@@ -6,20 +6,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { orderGenerator } from "../../redux/actions/orders";
-// import { useEffect } from "react";
-
 
 const OrderForm = () => {
-    const { payment_methods, cart, zonas_delivery, total_cart } = useSelector(state => state.orderReducer);
+    const { payment_methods, cart, zonas_delivery, total_cart, order } = useSelector(state => state.orderReducer);
     const [tasa, setTasa] = useState(parseFloat(JSON.parse(localStorage.getItem('tasa'))) || 4.65);
-
     const dispatch = useDispatch();
-    // console.log("zonas_delivery",zonas_delivery);
-
-
-    // useEffect(() => {
-    //     console.log("UseEffect cart", cart);
-    // }, [])
     const [form, setForm] = useState({
         name: '',
         observation: '',
@@ -91,20 +82,25 @@ const OrderForm = () => {
             [name]: value
         });
     }
-
+    console.log('Corregir validaForm')
     const validaForm = () => {
         // console.log("cart.lenght ñññ", !cart);
         if (form.name === '') return false;
-        if (cart.length === 0 || cart.length === undefined) return false;
+        // if (cart.length === 0 || cart.length === undefined) return false;
         if (form.delivery && form.address === '') return false;
-        if (!form.payment_methods.find(p => p.active)) return false;
+        // if (!form.payment_methods.find(p => p.active)) return false;
         return true;
     }
 
     return (
         <div className="container-form">
             <div>
-                <CartProducts cart={cart} total_cart={total_cart} tasa={tasa} zonas_delivery={zonas_delivery} />
+                <CartProducts
+                    cart={cart}
+                    total_cart={total_cart}
+                    tasa={tasa}
+                    zonas_delivery={zonas_delivery}
+                    combos={order.combos} />
                 <div className="tasa">
                     Tasa Bs./US$
                     <input className="input-tasa"
@@ -122,15 +118,15 @@ const OrderForm = () => {
                 <input onChange={handleChange} name="observation" type="text" />
                 Referencia
                 <input onChange={handleChange} name="reference" type="text" />
-                {zonas_delivery.find(d => d.active) ?
+                {zonas_delivery?.find(d => d.active) ?
                     <div> Direccion
                         <input onChange={handleChange} name="address" type="text" value={form.address} />
                     </div> : null}
                 {payment_methods?.map((element, index) => <ButtonInput handleChange={handleChange} element={element} key={index} />)}
             </div>
-            <div>
+            <div >
                 {validaForm() ? <>
-                    <Link to="/comanda">
+                    <Link to="/comanda" >
                         <button className="btn-comanda" onClick={() => dispatch(orderGenerator(form))}>Comanda</button>
                     </Link>
                 </> : null}

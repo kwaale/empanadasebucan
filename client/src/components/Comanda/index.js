@@ -7,8 +7,8 @@ import { deleteCart, addOrder } from '../../redux/actions/orders';
 const Comanda = () => {
     const { order } = useSelector(state => state.orderReducer);
     // const tasa = parseFloat(JSON.parse(localStorage.getItem('tasa')));
-
-    console.log("Comanda order", order);
+    const combosAdded = order.combos.filter(combo => combo.quantity > 0);
+    // console.log("Comanda order", order);
     const dispatch = useDispatch();
 
     return (
@@ -57,7 +57,8 @@ const Comanda = () => {
                                 if (p.active) {
                                     return <td key={i} className='table-text'>{`${p.name} ${p.amount}`}</td>
                                 }
-                                return null })}</td>
+                                return null
+                            })}</td>
                         </tr>
                         <tr>
                             <td className='table-text-neg'>Referencia</td>
@@ -69,12 +70,12 @@ const Comanda = () => {
                                 </>
                                 : null}
                         </tr>
-                        {order.combos && order.combos.map((p, i) => (
-                            <tr key={i}>
-                                <td className='table-text-neg'>{p.name}</td>
-                                <td className='table-text'>{p.quantity}</td>
-                                <td className='table-text-neg'>Descuento</td>
-                                <td className='table-text'>US$ {p.descuento.toFixed(2)}</td>
+                        {combosAdded && combosAdded.map((p) => (
+                            <tr key={p.id}>
+                                <td key={p.id.toString().concat('a')} className='table-text-neg'>{p.name}</td>
+                                <td key={p.id.toString().concat('b')} className='table-text'>{p.quantity}</td>
+                                <td key={p.id.toString().concat('c')} className='table-text-neg'>Descuento</td>
+                                <td key={p.id.toString().concat('d')} className='table-text'>US$ {(p.discount * p.quantity).toFixed(2)}</td>
                             </tr>
                         ))}
                         <tr>

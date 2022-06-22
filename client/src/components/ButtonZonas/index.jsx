@@ -4,11 +4,11 @@ const ButtonZonas = ({ zonas_delivery }) => {
     // console.log('zonas_delivery',zonas_delivery)
     // { name: "Zona 1", active: false, amount: 1.00, dolar: false },
     return (
-        <div>
+        <div className="btns-zonas">
             {zonas_delivery?.map(zona => (
-                <ButtonZona key={zona.name} zona={zona}/>
+                <ButtonZona key={zona.name} zona={zona} />
             ))}
         </div>
     );
-    }
+}
 export default ButtonZonas;

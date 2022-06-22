@@ -5,12 +5,12 @@ import {
     DELETE_PRODUCT_CART,
     DELETE_CART,
     GENERATE_ORDER,
-    ACTIVE_DESACTIVE
+    ACTIVE_DESACTIVE,
+    COMBOS_DISCONT,
 } from "../actionsConst";
 import { payment_methods, zonas } from './../../seeds';
-import { detectaCombos } from "../../utils/detectaCombos";
 // import { pedido1 } from './../../seeds/pedidosPrueba';
-
+import { combos } from '../../seeds/index';
 
 const initialState = {
     orders: [],
@@ -25,7 +25,7 @@ const initialState = {
         reference: "",
         cart: [],
         payment_methods: [],
-        combos: [],
+        combos: combos,
         descuento: 0,
         total: 0.00,
     },
@@ -64,10 +64,10 @@ const orderReducer = (state = initialState, action) => {
         case GENERATE_ORDER:
             // Si hay address, se agrega la orden asi.
             if (action.payload.address !== "") {
-                console.log("IF action.payload", action.payload);
+                // console.log("IF action.payload", action.payload);
                 return {
                     ...state,
-                    order: detectaCombos({
+                    order: {
                         ...state.order,
                         id: newId(),
                         order_date: new Date().toLocaleDateString(),
@@ -85,14 +85,14 @@ const orderReducer = (state = initialState, action) => {
                         cart: state.cart,
                         // order_status: state.order.order_status,
                         total: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
-                    }),
+                    },
                 }
                 // Si no hay address, se agrega la orden asi.
             } else {
                 console.log("Else action.payload", action.payload);
                 return {
                     ...state,
-                    order: detectaCombos({
+                    order: {
                         ...state.order,
                         id: newId(),
                         order_date: new Date().toLocaleDateString(),
@@ -104,7 +104,7 @@ const orderReducer = (state = initialState, action) => {
                         delivery: state.delivery,
                         // order_status: state.order.order_status,
                         total: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
-                    }),
+                    },
                 }
             }
         case ADD_PRODUCT_CART:
@@ -136,7 +136,6 @@ const orderReducer = (state = initialState, action) => {
                 // console.log("IF price && quantity === 1", price, quantity);
                 return {
                     ...state,
-
                     cart: state.cart.filter(p => p.id !== action.payload),
                     total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0) - price
                 }
@@ -221,11 +220,39 @@ const orderReducer = (state = initialState, action) => {
                     })
                 }
             }
-        // case ACTIVE_DELIVERY:
+        case COMBOS_DISCONT:
+            // console.log("action.payload", action.payload);
+            // Si existe ya el combo se agrego y hay que agregar mas
+            if (action.payload.simbol === "+") {
+                return {
+                    ...state,
+                    order: {
+                        ...state.order,
+                        combos: state.order.combos.map(combo => {
+                            if (combo.id === action.payload.id) combo.quantity++;
+                            return combo;
+                        }),
+                        descuento: state.order.combos.reduce((total, p) => total + p.discount * p.quantity, 0)
+                    }
+                }
+            } else {
+                return {
+                    ...state,
+                    order: {
+                        ...state.order,
+                        combos: state.order.combos.map(combo => {
+                            if (combo.id === action.payload.id && combo.quantity >= 1) combo.quantity--;
+                            return combo;
+                        }),
+                        descuento: state.order.combos.reduce((total, p) => total + p.discount * p.quantity, 0)
+                    }
+                }
+            }
+            // case SWITCH_DISCONT:
         //     return {
         //         ...state,
         //         order: initialState.order
-        //     }    
+        //     }  
         default:
             return state;
     }

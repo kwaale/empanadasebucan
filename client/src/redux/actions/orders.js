@@ -4,7 +4,8 @@ import {
     DELETE_PRODUCT_CART,
     DELETE_CART,
     GENERATE_ORDER,
-    ACTIVE_DESACTIVE } from "../actionsConst";
+    ACTIVE_DESACTIVE,
+    COMBOS_DISCONT } from "../actionsConst";
 
 // export function addMovieFavorite(payload) {
 //     return { type: "ADD_MOVIE_FAVORITE", payload };
@@ -67,7 +68,3 @@ export const activeDesactive = (name)=>{
         payload:name
     }
 }
-
-// COMBO screen
-// 4 normales
-// 2 jugos
