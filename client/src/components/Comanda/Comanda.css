@@ -1,8 +1,9 @@
 .table-container{
     color: black;
-    display: inline-flex;
+    display: inline-table;
     flex-flow: column;
-    background: white;
+    max-width: 8cm;
+    font-size: 18px;
 }
 .products-comanda{
     display: flex;
