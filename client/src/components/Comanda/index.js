@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteCart, addOrder } from '../../redux/actions/orders';
+import { INITIAL_ORDER } from '../../redux/actionsConst';
 
 const Comanda = () => {
     const { order } = useSelector(state => state.orderReducer);
@@ -17,12 +18,12 @@ const Comanda = () => {
             <div className='table-container'>
                 {/* colocar id Comanda */}
                 <table className='table-id'>
-                    <thead>
+                    {/* <thead> */}
                         <tr>
                             <th>ID Comanda</th>
                             <th>{order.id}</th>
                         </tr>
-                    </thead>
+                    {/* </thead> */}
                 </table>
                 <table>
                     <thead>
@@ -102,11 +103,11 @@ const Comanda = () => {
                         <button className='btn-new-order' onClick={(e) => {
                             // e.preventDefault();
                             dispatch(addOrder())
-                            dispatch(deleteCart())
+                            dispatch({ type: INITIAL_ORDER })
                         }}>Guardar</button>
                     </Link>
                     <Link to="/">
-                        <button className='btn-new-order' onClick={() => dispatch(deleteCart())}>Eliminar</button>
+                        <button className='btn-new-order' onClick={() => dispatch({ type: INITIAL_ORDER })}>Eliminar</button>
                     </Link>
                 </div>
                 <Link to="/">

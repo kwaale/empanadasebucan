@@ -7,6 +7,7 @@ import {
     GENERATE_ORDER,
     ACTIVE_DESACTIVE,
     COMBOS_DISCONT,
+    INITIAL_ORDER,
 } from "../actionsConst";
 import { payment_methods, zonas } from './../../seeds';
 // import { pedido1 } from './../../seeds/pedidosPrueba';
@@ -60,7 +61,7 @@ const orderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 orders: [...state.orders, state.order],
-            }
+            };
         case GENERATE_ORDER:
             // Si hay address, se agrega la orden asi.
             if (action.payload.address !== "") {
@@ -106,7 +107,7 @@ const orderReducer = (state = initialState, action) => {
                         total: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
                     },
                 }
-            }
+            };
         case ADD_PRODUCT_CART:
             // console.log('ADD_PRODUCT_CART', action.payload);
             if (state.cart.find(p => p.id === action.payload.id)) {
@@ -150,7 +151,7 @@ const orderReducer = (state = initialState, action) => {
                     }),
                     total_cart: state.cart.reduce((total, p) => total + p.price * p.quantity, 0)
                 }
-            }
+            };
         case DELETE_CART:
             // console.log("DELETE_CART", zonas)
             return {
@@ -185,8 +186,7 @@ const orderReducer = (state = initialState, action) => {
                         active: false
                     }
                 })
-            }
-
+            };
         case ACTIVE_DESACTIVE:
             // console.log("reducer", action.payload)
             // activa los delivery
@@ -219,7 +219,7 @@ const orderReducer = (state = initialState, action) => {
                         return p;
                     })
                 }
-            }
+            };
         case COMBOS_DISCONT:
             // console.log("action.payload", action.payload);
             // Si existe ya el combo se agrego y hay que agregar mas
@@ -247,12 +247,28 @@ const orderReducer = (state = initialState, action) => {
                         descuento: state.order.combos.reduce((total, p) => total + p.discount * p.quantity, 0)
                     }
                 }
-            }
-            // case SWITCH_DISCONT:
-        //     return {
-        //         ...state,
-        //         order: initialState.order
-        //     }  
+            };
+        case INITIAL_ORDER:
+            console.log("INITIAL_ORDER initialState", initialState);
+            return state = {
+                ...initialState,
+                order: {
+                    ...initialState.order,
+                    combos: initialState.order.combos.map(c => {
+                        c.quantity = 0
+                        return c;
+                    }),
+                },
+                payment_methods: initialState.payment_methods.map(p => {
+                    p.active = false;
+                    p.amount = 0;
+                    return p;
+                }),
+                zonas_delivery: initialState.zonas_delivery.map(z => {
+                    z.active = false;
+                    return z;
+                })
+            };
         default:
             return state;
     }

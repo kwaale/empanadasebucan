@@ -18,8 +18,17 @@ const CartProducts = ({ cart, total_cart, tasa, zonas_delivery, combos }) => {
             {total_cart > 0 ?
                 <div>
                     {/* Total con delivery incluido */}
-                    <h4>Total: US$ {(total_cart + zonas_delivery?.reduce((acum, z) => z.active ? acum + z.amount : acum, 0)).toFixed(2)}
-                        / Bs. {((total_cart + zonas_delivery?.reduce((acum, z) => z.active ? acum + z.amount : acum, 0)) * tasa).toFixed(2)}</h4>
+                    <h4>Total: US$ {
+                        (total_cart +
+                            zonas_delivery?.reduce((acum, z) => z.active ? acum + z.amount : acum, 0) -
+                            combos?.reduce((acum, c) => c.quantity > 0 ? acum + c.discount * c.quantity : acum, 0)).toFixed(2)
+                    }
+                        / Bs. {
+                            ((total_cart +
+                                zonas_delivery?.reduce((acum, z) => z.active ? acum + z.amount : acum, 0) -
+                                combos?.reduce((acum, c) => c.quantity > 0 ? acum + c.discount * c.quantity : acum, 0)) *
+                                tasa).toFixed(2)}
+                    </h4>
                 </div>
                 : null}
             {combosAdded.length > 0 ?

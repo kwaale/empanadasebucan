@@ -82,13 +82,13 @@ const OrderForm = () => {
             [name]: value
         });
     }
-    console.log('Corregir validaForm')
+    // console.log('Corregir validaForm')
     const validaForm = () => {
         // console.log("cart.lenght ñññ", !cart);
         if (form.name === '') return false;
-        // if (cart.length === 0 || cart.length === undefined) return false;
+        if (cart.length === 0 || cart.length === undefined) return false;
         if (form.delivery && form.address === '') return false;
-        // if (!form.payment_methods.find(p => p.active)) return false;
+        if (!form.payment_methods.find(p => p.active)) return false;
         return true;
     }
 
