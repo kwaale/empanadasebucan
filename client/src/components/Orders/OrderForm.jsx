@@ -110,18 +110,27 @@ const OrderForm = () => {
                         type="number"
                     />
                 </div>
-                Delivery
-                <ButtonZonas zonas_delivery={zonas_delivery} />
-                Cliente
-                <input onChange={handleChange} name="name" type="text" />
-                Observacion
-                <input onChange={handleChange} name="observation" type="text" />
-                Referencia
-                <input onChange={handleChange} name="reference" type="text" />
-                {zonas_delivery?.find(d => d.active) ?
-                    <div> Direccion
-                        <input onChange={handleChange} name="address" type="text" value={form.address} />
-                    </div> : null}
+                <div>
+                    Delivery
+                    <ButtonZonas zonas_delivery={zonas_delivery} />
+                    <div className="container-input">
+                        Cliente
+                        <input onChange={handleChange} name="name" type="text" />
+                    </div>
+                    <div className="container-input">
+                        Observacion
+                        <input onChange={handleChange} name="observation" type="text" />
+                    </div>
+                    <div className="container-input">
+                        Referencia
+                        <input onChange={handleChange} name="reference" type="text" />
+                    </div>
+                    {zonas_delivery?.find(d => d.active) ?
+                        <div className="container-input">
+                            Direccion
+                            <input onChange={handleChange} name="address" type="text" value={form.address} />
+                        </div> : null}
+                </div>
                 {payment_methods?.map((element, index) => <ButtonInput handleChange={handleChange} element={element} key={index} />)}
             </div>
             <div >

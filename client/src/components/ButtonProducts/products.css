@@ -106,7 +106,7 @@
     display: inline-flex;
     flex-flow: column;
     margin-bottom: 15px;
-    width: min-content;
+    width: 270px;
     text-align: left;
 }
 
