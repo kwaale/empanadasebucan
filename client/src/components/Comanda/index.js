@@ -19,40 +19,52 @@ const Comanda = () => {
                 {/* colocar id Comanda */}
                 <table className='table-id'>
                     {/* <thead> */}
-                        <tr>
-                            <th>ID Comanda</th>
-                            <th>{order.id}</th>
-                        </tr>
+                    <tr>
+                        <th>ID Comanda</th>
+                        <th>{order.id}</th>
+                    </tr>
                     {/* </thead> */}
                 </table>
                 <table>
                     <thead>
                         <tr>
+                            <th>Tipo</th>
                             <th>Empanada</th>
                             <th>Cantidad</th>
                             <th>Precio</th>
                             <th>Sub-total</th>
                         </tr>
                     </thead>
+                    {/* Productos */}
+                    {order.cart?.sort((a,b) => {
+                        if(a.category < b.category) return 1;
+                        if(a.category > b.category) return -1;
+                        return 0;
+                    }).map(product => (
+                        <tr key={product.id}>
+                            <td className='table-text'>{product.category[0].toUpperCase().concat(product.category.slice(1,3))}</td>
+                            <td className='table-text'>{product.name}</td>
+                            <td>{product.quantity}</td>
+                            <td>{product.price.toFixed(2)}</td>
+                            <td>{(product.quantity * product.price).toFixed(2)}</td>
+                        </tr>
+                    ))}
+                </table>
+                <table>
                     <tbody>
-                        {/* Productos */}
-                        {order.cart?.map(product => (
-                            <tr key={product.id}>
-                                <td className='table-text'>{product.name}</td>
-                                <td>{product.quantity}</td>
-                                <td>{product.price.toFixed(2)}</td>
-                                <td>{(product.quantity * product.price).toFixed(2)}</td>
-                            </tr>
-                        ))}
                         <tr>
-                            <td className='table-text-neg' >Cliente</td>
-                            <td className='table-text'>{order.name}</td>
                             <td className='table-text-neg'>Pedido</td>
                             <td className='table-text'>US$ {order.total.toFixed(2)}</td>
                         </tr>
                         <tr>
+                            <td className='table-text-neg' >Cliente</td>
+                            <td className='table-text'>{order.name}</td>
+                        </tr>
+                        <tr>
                             <td className='table-text-neg'>Observacion</td>
                             <td className='table-text'>{order.observation}</td>
+                        </tr>
+                        <tr>
                             <td className='table-text-neg'>Medios de Pago</td>
                             <td className='table-text'>{order.payment_methods.map((p, i) => {
                                 if (p.active) {
@@ -64,7 +76,10 @@ const Comanda = () => {
                         <tr>
                             <td className='table-text-neg'>Referencia</td>
                             <td className='table-text'>{order.reference}</td>
+                        </tr>
+                        <tr>
                             {order.delivery.active ?
+
                                 <>
                                     <td className='table-text-neg'>Delivery</td>
                                     <td>US$ {order.delivery.zona.amount.toFixed(2)}</td>
@@ -75,21 +90,21 @@ const Comanda = () => {
                             <tr key={p.id}>
                                 <td key={p.id.toString().concat('a')} className='table-text-neg'>{p.name}</td>
                                 <td key={p.id.toString().concat('b')} className='table-text'>{p.quantity}</td>
-                                <td key={p.id.toString().concat('c')} className='table-text-neg'>Descuento</td>
-                                <td key={p.id.toString().concat('d')} className='table-text'>US$ {(p.discount * p.quantity).toFixed(2)}</td>
                             </tr>
                         ))}
                         <tr>
-                            <td className='table-text-neg'>Direcion</td>
-                            <td className='table-text'>{order.address}</td>
                             <td className='table-text-neg'>Total a Pagar</td>
                             {order.delivery.active ?
                                 <td className='table-text'>
                                     US$ {(order.total - order.descuento + order.delivery.zona.amount).toFixed(2)}
                                 </td> :
                                 order.delivery.active ?
-                                    <td>US$ {(order.total + order.delivery.zona.amount - - order.descuento).toFixed(2)}</td> :
+                                    <td>US$ {(order.total + order.delivery.zona.amount - order.descuento).toFixed(2)}</td> :
                                     <td>US$ {(order.total - order.descuento).toFixed(2)}</td>}
+                        </tr>
+                        <tr>
+                            <td className='table-text-neg'>Direcion</td>
+                            <td className='table-text'>{order.address}</td>
                         </tr>
                     </tbody>
                 </table>
